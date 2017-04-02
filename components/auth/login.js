@@ -1,6 +1,17 @@
 import React from 'react';
+import styled from 'styled-components';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 import { auth } from '~/lib/firebase';
+
+const Form = styled.form`
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  padding: 0 20px;
+  flex-direction: column;
+`;
 
 export default class Login extends React.Component {
   constructor() {
@@ -31,32 +42,33 @@ export default class Login extends React.Component {
 
   render() {
     return (
-      <div className="login-container">
-        <form className="login--email" onSubmit={this.handleSubmit}>
-          <h3>Login</h3>
-          <label>
-            <span>Email</span>
-            <input
-              type="email"
-              name="email"
-              onChange={this.handleInput}
-              required
-            />
-          </label>
-          <label>
-            <span>Password</span>
-            <input
-              type="password"
-              name="password"
-              onChange={this.handleInput}
-              required
-            />
-          </label>
-          <button className="login-button">
-            Login
-          </button>
-        </form>
-      </div>
+      <Form onSubmit={this.handleSubmit}>
+        <TextField
+          floatingLabelText="Login with your Meerkats email address"
+          type="email"
+          id="login-email"
+          name="email"
+          style={{ width: '100%' }}
+          onChange={this.handleInput}
+          required
+        />
+        <TextField
+          floatingLabelText="Password"
+          type="password"
+          id="login-password"
+          name="password"
+          style={{ width: '100%' }}
+          onChange={this.handleInput}
+          required
+        />
+        <RaisedButton
+          label="Login"
+          style={{ margin: '20px 0' }}
+          primary
+          type="submit"
+          onClick={this.handleSubmit}
+        />
+      </Form>
     );
   }
 }

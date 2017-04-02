@@ -5,7 +5,7 @@ import UserList from '~/components/userList';
 import { users } from '~/stores';
 
 export default () => (
-  <Layout>
+  <Layout title="All Projects">
     <UserList users={users} />
   </Layout>
 );

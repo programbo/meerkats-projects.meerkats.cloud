@@ -1,7 +1,18 @@
 import React from 'react';
+import styled from 'styled-components';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 
 import { auth } from '~/lib/firebase';
 import { users } from '~/stores';
+
+const Form = styled.form`
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  padding: 0 20px;
+  flex-direction: column;
+`;
 
 export default class Register extends React.Component {
   constructor() {
@@ -41,32 +52,33 @@ export default class Register extends React.Component {
 
   render() {
     return (
-      <div className="register-container">
-        <form className="register--email" onSubmit={this.handleSubmit}>
-          <h3>Register</h3>
-          <label>
-            <span>Email</span>
-            <input
-              type="email"
-              name="email"
-              onChange={this.handleInput}
-              required
-            />
-          </label>
-          <label>
-            <span>Password</span>
-            <input
-              type="password"
-              name="password"
-              onChange={this.handleInput}
-              required
-            />
-          </label>
-          <button className="register-button">
-            Register
-          </button>
-        </form>
-      </div>
+      <Form onSubmit={this.handleSubmit}>
+        <TextField
+          floatingLabelText="Register with your Meerkats email address"
+          type="email"
+          id="register-email"
+          name="email"
+          style={{ width: '100%' }}
+          onChange={this.handleInput}
+          required
+        />
+        <TextField
+          floatingLabelText="Password"
+          type="password"
+          id="register-password"
+          name="password"
+          style={{ width: '100%' }}
+          onChange={this.handleInput}
+          required
+        />
+        <RaisedButton
+          label="Register"
+          style={{ margin: '20px 0' }}
+          primary
+          type="submit"
+          onClick={this.handleSubmit}
+        />
+      </Form>
     );
   }
 }

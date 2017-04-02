@@ -4,7 +4,7 @@ import { observer } from 'mobx-react';
 import { currentUser } from '~/stores';
 
 export default observer(() => (
-  <div className="current-user">
+  <h1 className="current-user">
     Current user: {currentUser.profile && JSON.stringify(currentUser.profile)}
-  </div>
+  </h1>
 ));

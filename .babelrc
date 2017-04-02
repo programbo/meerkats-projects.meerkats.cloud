@@ -1,6 +1,6 @@
 {
   "presets": [
-    "next/babel"
+    "es2015", "react", "next/babel"
   ],
   "plugins": [
     "root-import",
