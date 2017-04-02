@@ -1,0 +1,10 @@
+{
+  "presets": [
+    "next/babel"
+  ],
+  "plugins": [
+    "root-import",
+    "transform-decorators-legacy",
+    "transform-export-extensions"
+  ]
+}
