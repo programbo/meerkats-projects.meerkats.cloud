@@ -1,10 +1,9 @@
 import React from 'react';
-import { when } from 'mobx-react';
+import { when } from 'mobx';
 import { observer } from 'mobx-react';
 import DevTools from 'mobx-react-devtools';
 
 import { currentUser } from '~/stores';
-import { auth } from '~/lib/firebase';
 import CurrentUser from '~/components/currentUser';
 import { Login, Logout, Register, Connect } from '~/components/auth';
 
@@ -34,9 +33,12 @@ export default class Layout extends React.Component {
   }
 
   componentDidMount() {
-    auth().onAuthStateChanged(() => {
-      this.setState({ ready: true });
-    });
+    when(
+      () => currentUser.pending === false,
+      () => {
+        this.setState({ ready: true });
+      }
+    );
   }
 
   render() {

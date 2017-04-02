@@ -4,19 +4,20 @@ import { users } from '~/stores';
 
 class CurrentUser {
   @observable user = null;
+  @observable pending = true;
 
   constructor() {
     auth().onAuthStateChanged(currentUser => {
       this.user = currentUser;
+      this.pending = false;
     });
   }
 
   @computed get profile() {
     if (!this.user) {
       return null;
-    } else {
-      return users.values.find(({ email }) => email === this.user.email);
     }
+    return users.values.find(({ email }) => email === this.user.email);
   }
 
   @computed get loggedIn() {
