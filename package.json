@@ -6,7 +6,7 @@
   "author": "John Lombardo <john@meerkats.com.au>",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development FIREBASE_API_KEY=AIzaSyBAT3BZC2lHl7m7RxK0dxRwBJi2VwB-oeI next",
+    "dev": "NODE_ENV=development next",
     "build": "next build",
     "start": "next start",
     "deploy": "now -e NODE_ENV=production"
