@@ -13,6 +13,13 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
+const TextInput = styled(TextField)`
+  width: 100%;
+  & > input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+`;
+
 export default class Login extends React.Component {
   constructor() {
     super();
@@ -43,7 +50,7 @@ export default class Login extends React.Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-        <TextField
+        <TextInput
           floatingLabelText="Login with your Meerkats email address"
           type="email"
           id="login-email"
@@ -52,7 +59,7 @@ export default class Login extends React.Component {
           onChange={this.handleInput}
           required
         />
-        <TextField
+        <TextInput
           floatingLabelText="Password"
           type="password"
           id="login-password"

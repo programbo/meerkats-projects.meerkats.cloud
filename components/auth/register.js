@@ -14,6 +14,13 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
+const TextInput = styled(TextField)`
+  width: 100%;
+  & > input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  }
+`;
+
 export default class Register extends React.Component {
   constructor() {
     super();
@@ -53,7 +60,7 @@ export default class Register extends React.Component {
   render() {
     return (
       <Form onSubmit={this.handleSubmit}>
-        <TextField
+        <TextInput
           floatingLabelText="Register with your Meerkats email address"
           type="email"
           id="register-email"
@@ -62,7 +69,7 @@ export default class Register extends React.Component {
           onChange={this.handleInput}
           required
         />
-        <TextField
+        <TextInput
           floatingLabelText="Password"
           type="password"
           id="register-password"

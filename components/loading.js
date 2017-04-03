@@ -12,6 +12,7 @@ const Loading = styled.div`
 const LoadingLabel = styled.h1`
   ${centered()}
   margin: 0;
+  color: #222;
 `;
 
 const LoadingIcon = styled(FontIcon)`
