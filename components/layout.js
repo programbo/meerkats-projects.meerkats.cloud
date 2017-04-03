@@ -6,7 +6,9 @@ import { observer } from 'mobx-react';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import IconButton from 'material-ui/IconButton';
 import { green100, green500, green700 } from 'material-ui/styles/colors';
+import styled from 'styled-components';
 
 import { currentUser } from '~/stores';
 import CurrentUser from '~/components/currentUser';
@@ -76,6 +78,8 @@ export default class Layout extends React.Component {
             {
               `
               body {
+                box-sizing: border-box;
+                min-height: 100vh;
                 margin: 0;
                 padding: 40px;
                 font-size: 16px;
@@ -91,11 +95,14 @@ export default class Layout extends React.Component {
           </style>
         </Head>
         <MuiThemeProvider muiTheme={muiTheme}>
-          {this.state.ready
-            ? currentUser.loggedIn
-                ? renderLoggedIn(this.props.children)
-                : <AuthPanel />
-            : renderLoading()}
+          <div>
+            <IconButton iconClassName="fa fa-cog" style={{position: 'absolute', top: 0, right: 0, width: '100px', height: '100px'}} iconStyle={{fontSize: '3rem', color: 'silver'}} />
+            {this.state.ready
+              ? currentUser.loggedIn
+                  ? renderLoggedIn(this.props.children)
+                  : <AuthPanel />
+              : renderLoading()}
+          </div>
         </MuiThemeProvider>
         {/* <DevTools /> */}
       </div>
