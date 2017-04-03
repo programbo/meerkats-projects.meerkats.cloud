@@ -1,4 +1,3 @@
-import React from 'react';
 import { observer } from 'mobx-react';
 import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
@@ -7,6 +6,7 @@ import FontIcon from 'material-ui/FontIcon';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { red600, red900 } from 'material-ui/styles/colors';
 
+import Todos from '~/components/settings/todos';
 import Projects from '~/components/settings/projects';
 import Users from '~/components/settings/users';
 import Preferences from '~/components/settings/preferences';
@@ -67,6 +67,12 @@ export default class SettingsPanel extends React.Component {
           autoScrollBodyContent={true}
         >
           <Tabs>
+            <Tab
+              icon={<FontIcon className="fa fa-check-square-o" />}
+              label="TODO"
+            >
+              <Todos />
+            </Tab>
             <Tab icon={<FontIcon className="fa fa-th" />} label="PROJECTS">
               <Projects />
             </Tab>

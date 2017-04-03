@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';

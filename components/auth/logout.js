@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { auth } from '~/lib/firebase';
 
 const handleLogout = async () => {

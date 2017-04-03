@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from 'styled-components';
 import Divider from 'material-ui/Divider';
 import { Tabs, Tab } from 'material-ui/Tabs';

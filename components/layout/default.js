@@ -1,4 +1,3 @@
-import React from 'react';
 import { when } from 'mobx';
 import { observer } from 'mobx-react';
 // import DevTools from 'mobx-react-devtools';

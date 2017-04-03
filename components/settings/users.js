@@ -8,7 +8,6 @@ import {
   TableRowColumn
 } from 'material-ui/Table';
 
-// import User from '~/components/user';
 import { users } from '~/stores';
 
 export default observer(() => (

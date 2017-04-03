@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { DefaultLayout } from '~/components/layout';
 
 export default () => (

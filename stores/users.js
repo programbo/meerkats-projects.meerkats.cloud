@@ -5,8 +5,8 @@ class Users {
   @observable users = observable.map({});
 
   constructor() {
-    auth().onAuthStateChanged(currentUser => {
-      if (currentUser) {
+    auth().onAuthStateChanged(authenticatedUser => {
+      if (authenticatedUser) {
         firebase.users.on('value', this.refresh);
       } else {
         firebase.users.off('value', this.refresh);
