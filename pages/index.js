@@ -1,11 +1,9 @@
 import React from 'react';
 
-import Layout from '~/components/layout';
-import UserList from '~/components/userList';
-import { users } from '~/stores';
+import { DefaultLayout } from '~/components/layout';
 
 export default () => (
-  <Layout title="All Projects">
-    <UserList users={users} />
-  </Layout>
+  <DefaultLayout title="All Projects">
+    <h1>All Projects</h1>
+  </DefaultLayout>
 );

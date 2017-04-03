@@ -1,4 +1,9 @@
-import React from 'react';
 import { observer } from 'mobx-react';
+import { TableRow, TableRowColumn } from 'material-ui/Table';
 
-export default observer(({ email }) => <li className="user">{email}</li>);
+export default observer(({ email }) => (
+  <TableRow>
+    <TableRowColumn>Picture</TableRowColumn>
+    <TableRowColumn>{email}</TableRowColumn>
+  </TableRow>
+));

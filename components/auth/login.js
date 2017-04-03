@@ -55,7 +55,7 @@ export default class Login extends React.Component {
           type="email"
           id="login-email"
           name="email"
-          style={{ width: '100%' }}
+          fullWidth
           onChange={this.handleInput}
           required
         />
@@ -64,7 +64,7 @@ export default class Login extends React.Component {
           type="password"
           id="login-password"
           name="password"
-          style={{ width: '100%' }}
+          fullWidth
           onChange={this.handleInput}
           required
         />

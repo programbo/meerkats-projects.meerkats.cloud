@@ -1,4 +1,3 @@
-import React from 'react';
 import FontIcon from 'material-ui/FontIcon';
 import styled from 'styled-components';
 import { centered, fullscreen, rotate } from '~/components/elements/styles';
@@ -12,7 +11,6 @@ const Loading = styled.div`
 const LoadingLabel = styled.h1`
   ${centered()}
   margin: 0;
-  color: #222;
 `;
 
 const LoadingIcon = styled(FontIcon)`

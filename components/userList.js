@@ -1,15 +1,36 @@
-import React, { Component } from 'react';
 import { observer } from 'mobx-react';
+import {
+  Table,
+  TableBody,
+  TableHeader,
+  TableHeaderColumn,
+  TableRow,
+  TableRowColumn
+} from 'material-ui/Table';
 
-import User from '~/components/user';
+// import User from '~/components/user';
 import { users } from '~/stores';
 
 export default observer(() => (
-  <ul className="users">
-    {users.values.length
-      ? users.values.map(({ email }, index) => (
-          <User email={email} key={index} />
-        ))
-      : <li className="no-users">No users</li>}
-  </ul>
+  <Table>
+    <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
+      <TableRow>
+        <TableHeaderColumn>Avatar</TableHeaderColumn>
+        <TableHeaderColumn>Display Name</TableHeaderColumn>
+        <TableHeaderColumn>Full Name</TableHeaderColumn>
+        <TableHeaderColumn>Email</TableHeaderColumn>
+      </TableRow>
+    </TableHeader>
+    <TableBody displayRowCheckbox={false}>
+      {users.values.length &&
+        users.values.map(({ email }, index) => (
+          <TableRow key={index}>
+            <TableRowColumn>Picture</TableRowColumn>
+            <TableRowColumn>John</TableRowColumn>
+            <TableRowColumn>John Lombardo</TableRowColumn>
+            <TableRowColumn>{email}</TableRowColumn>
+          </TableRow>
+        ))}
+    </TableBody>
+  </Table>
 ));
