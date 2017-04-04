@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react';
+import Avatar from 'material-ui/Avatar';
 import {
   Table,
   TableBody,
@@ -24,7 +25,7 @@ export default observer(() => (
       {users.values.length &&
         users.values.map(({ email }, index) => (
           <TableRow key={index}>
-            <TableRowColumn>Picture</TableRowColumn>
+            <TableRowColumn><Avatar>J</Avatar></TableRowColumn>
             <TableRowColumn>John</TableRowColumn>
             <TableRowColumn>John Lombardo</TableRowColumn>
             <TableRowColumn>{email}</TableRowColumn>

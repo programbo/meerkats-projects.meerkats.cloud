@@ -6,7 +6,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import { currentUser } from '~/stores';
-import CurrentUser from '~/components/currentUser';
 import Loading from '~/components/loading';
 import Settings from '~/components/settings';
 import { AuthPanel, Logout } from '~/components/auth';

@@ -1,4 +1,7 @@
 import { observer } from 'mobx-react';
+import classnames from 'classnames';
+import styled from 'styled-components';
+import Checkbox from 'material-ui/Checkbox';
 import {
   Table,
   TableBody,
@@ -9,26 +12,35 @@ import {
 } from 'material-ui/Table';
 
 import { todos } from '~/stores';
-console.log('todos.values', todos.values); // eslint-disable-line no-console
 
-const handleToggle = rows => {
-  rows.forEach(row => {
-    const { id } = todos.values[row];
-    console.log('id', id); // eslint-disable-line no-console
-  });
+const handleToggle = (e, completed) => {
+  todos.set(e.target.id, completed);
 };
 
+const Task = styled.span`
+  .completed & {
+    opacity: 0.5;
+    text-decoration: line-through;
+    transition: opacity 0.3s ease;
+  }
+`;
+
 export default observer(() => (
-  <Table multiSelectable onRowSelection={handleToggle}>
+  <Table selectable={false}>
     <TableHeader>
       <TableRow>
         <TableHeaderColumn>Tasks</TableHeaderColumn>
       </TableRow>
     </TableHeader>
-    <TableBody>
-      {todos.values.map(({ id, task }) => (
+    <TableBody displayRowCheckbox={false}>
+      {todos.values.map(({ id, task, completed }) => (
         <TableRow key={id}>
-          <TableRowColumn>{task}</TableRowColumn>
+          <TableRowColumn style={{ width: '24px' }}>
+            <Checkbox id={id} onCheck={handleToggle} checked={completed} />
+          </TableRowColumn>
+          <TableRowColumn className={classnames({ completed })}>
+            <Task>{task}</Task>
+          </TableRowColumn>
         </TableRow>
       ))}
     </TableBody>

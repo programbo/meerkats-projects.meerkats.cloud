@@ -35,6 +35,10 @@ class Todos {
     firebase.todos.update({ [id]: item });
   };
 
+  set = (id, state) => {
+    firebase.todos.child(`${id}/completed`).set(state);
+  };
+
   remove = id => {
     firebase.todos.child(id).remove();
   };
