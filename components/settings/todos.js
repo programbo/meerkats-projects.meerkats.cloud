@@ -34,7 +34,7 @@ const Task = styled(TextField)`
 
 @observer
 export default class Todos extends React.Component {
-  state = { ready: true };
+  state = { task: '' };
 
   action = { width: '24px' };
 
@@ -46,25 +46,19 @@ export default class Todos extends React.Component {
     todos.edit(name, value);
   };
 
-  handleAdd = ({ key, target }) => {
+  handleEditNewTask = ({ target: { value } }) => {
+    this.setState({ task: value });
+  };
+
+  handleAddNewTask = ({ key }) => {
     if (key === 'Enter') {
-      todos.add(target.value);
-      target.value = '';
+      todos.add(this.state.task);
+      this.setState({ task: '' });
     }
   };
 
   handleRemove = id => {
     todos.remove(id);
-  };
-
-  handleBlur = ({ target }) => {
-    this.setState({ ready: false });
-    setTimeout(
-      () => {
-        this.setState({ ready: true });
-      },
-      0
-    );
   };
 
   render() {
@@ -73,13 +67,13 @@ export default class Todos extends React.Component {
         <TableHeader>
           <TableRow>
             <TableHeaderColumn colSpan="2">
-              {this.state.ready &&
-                <Task
-                  hintText="Add a task"
-                  style={{ lineHeight: '20px' }}
-                  onKeyPress={this.handleAdd}
-                  onBlur={this.handleBlur}
-                />}
+              <Task
+                value={this.state.task}
+                hintText="Add a task"
+                style={{ lineHeight: '20px' }}
+                onKeyPress={this.handleAddNewTask}
+                onChange={this.handleEditNewTask}
+              />
             </TableHeaderColumn>
           </TableRow>
         </TableHeader>
@@ -94,11 +88,7 @@ export default class Todos extends React.Component {
                 />
               </TableRowColumn>
               <TableRowColumn className={classnames({ completed })}>
-                <Task
-                  name={id}
-                  defaultValue={task}
-                  onChange={this.handleEdit}
-                />
+                <Task name={id} value={task} onChange={this.handleEdit} />
               </TableRowColumn>
               <TableRowColumn
                 style={this.action}
