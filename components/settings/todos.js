@@ -15,7 +15,7 @@ import {
 } from 'material-ui/Table';
 import { red600, red900 } from 'material-ui/styles/colors';
 
-import { todos } from '~/stores';
+import { app, todos } from '~/stores';
 
 const Task = styled(TextField)`
   .completed & input {
@@ -54,11 +54,18 @@ export default class Todos extends React.Component {
     if (key === 'Enter') {
       todos.add(this.state.task);
       this.setState({ task: '' });
+      this.recenterPanel();
     }
   };
 
   handleRemove = id => {
     todos.remove(id);
+    this.recenterPanel();
+  };
+
+  recenterPanel = () => {
+    app.showSettings = false;
+    app.showSettings = true;
   };
 
   render() {

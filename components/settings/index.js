@@ -7,6 +7,7 @@ import FontIcon from 'material-ui/FontIcon';
 import { Tabs, Tab } from 'material-ui/Tabs';
 import { red600, red900 } from 'material-ui/styles/colors';
 
+import { app } from '~/stores';
 import Todos from '~/components/settings/todos';
 import Projects from '~/components/settings/projects';
 import Users from '~/components/settings/users';
@@ -31,11 +32,13 @@ export default class SettingsPanel extends React.Component {
   };
 
   handleOpen = () => {
-    this.setState({ open: true });
+    app.showSettings = true;
+    // this.setState({ open: true });
   };
 
   handleClose = () => {
-    this.setState({ open: false });
+    app.showSettings = false;
+    // this.setState({ open: false });
   };
 
   handleLogout = async () => {
@@ -73,7 +76,7 @@ export default class SettingsPanel extends React.Component {
         <Dialog
           actions={actions}
           modal={false}
-          open={this.state.open}
+          open={app.showSettings}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
         >
