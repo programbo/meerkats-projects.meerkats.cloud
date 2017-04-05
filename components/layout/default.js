@@ -1,6 +1,6 @@
 import { when } from 'mobx';
 import { observer } from 'mobx-react';
-// import DevTools from 'mobx-react-devtools';
+import DevTools from 'mobx-react-devtools';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
@@ -50,7 +50,7 @@ export default class Layout extends React.Component {
               : <Loading />}
           </div>
         </MuiThemeProvider>
-        {/* <DevTools /> */}
+        {process.env.NODE_ENV !== 'production' && <DevTools />}
       </div>
     );
   }
