@@ -30,11 +30,13 @@ class Users {
     root.child('/users').orderByChild('email').equalTo(email).once('value');
 
   add = async user => {
-    const match = await this.findUser(user);
-    const id = match.val()
-      ? Object.keys(match.val())[0]
-      : firebase.users.push().key;
-    this.update(id, user);
+    // const match = await this.findUser(user);
+    // const id = match.val()
+    //   ? Object.keys(match.val())[0]
+    //   : firebase.users.push().key;
+    firebase.users.child(user.uid).update(user)
+    // console.log('user', user); // eslint-disable-line no-console
+    // this.update(id, user);
   };
 
   update = (id, user) => {

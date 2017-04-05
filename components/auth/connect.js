@@ -20,8 +20,8 @@ export default class Connect extends React.Component {
       const result = await auth().signInWithPopup(
         new auth.GoogleAuthProvider()
       );
-      const { email, emailVerified } = result.user;
-      users.add({ email, emailVerified });
+      const { email, emailVerified, uid } = result.user;
+      users.add({ email, emailVerified, uid });
     } catch (error) {
       console.error(error);
     }

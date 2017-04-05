@@ -37,8 +37,8 @@ export default class Register extends React.Component {
         this.state.password
       );
       if (currentUser) {
-        const { email, emailVerified } = currentUser;
-        users.add({ email, emailVerified });
+        const { email, emailVerified, uid } = currentUser;
+        users.add({ email, emailVerified, uid });
       }
     } catch (error) {
       const { code, message } = error;
