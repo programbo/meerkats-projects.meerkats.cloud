@@ -24,19 +24,32 @@ class Todos {
     return keys.map(id => ({ id, ...data[id] }));
   }
 
+  @computed get sortedValues() {
+    return this.values.sort((a, b) => {
+      if (a.completed !== b.completed) {
+        return a.completed > b.completed ? 1 : -1;
+      }
+      return a.id < b.id ? 1 : -1;
+    });
+  }
+
   refresh = todos => this.todos = todos.val();
 
-  add = async item => {
+  add = async (task, completed = false) => {
     const id = firebase.todos.push().key;
-    this.update(id, item);
+    this.update(id, { task, completed });
   };
 
   update = (id, item) => {
     firebase.todos.update({ [id]: item });
   };
 
-  set = (id, state) => {
-    firebase.todos.child(`${id}/completed`).set(state);
+  set = (id, completed) => {
+    firebase.todos.child(`${id}/completed`).set(completed);
+  };
+
+  edit = (id, task) => {
+    firebase.todos.child(`${id}/task`).set(task);
   };
 
   remove = id => {

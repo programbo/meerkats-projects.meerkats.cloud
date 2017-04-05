@@ -1,4 +1,22 @@
-import { keyframes } from 'styled-components';
+import { css, keyframes } from 'styled-components';
+
+const breakpoints = {
+  mobile: 375,
+  tablet: 480,
+  desktop: 840
+};
+
+export const media = Object.keys(breakpoints).reduce(
+  (collection, breakpoint) => ({
+    ...collection,
+    [breakpoint]: (...args) => css`
+      @media (min-width: ${breakpoints[breakpoint]}px) {
+        ${css(...args)}
+      }
+    `
+  }),
+  {}
+);
 
 export const centered = () => `
   position: absolute;
@@ -22,6 +40,13 @@ export const size = (width, height) => `
 export const square = size => `
   width: ${size};
   height: ${size};
+`;
+
+export const truncate = width => `
+  width: ${width};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export const rotate = (duration = '1s') => {

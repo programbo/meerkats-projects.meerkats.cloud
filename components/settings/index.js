@@ -1,4 +1,5 @@
 import { observer } from 'mobx-react';
+import styled from 'styled-components';
 import IconButton from 'material-ui/IconButton';
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
@@ -10,13 +11,23 @@ import Todos from '~/components/settings/todos';
 import Projects from '~/components/settings/projects';
 import Users from '~/components/settings/users';
 import Preferences from '~/components/settings/preferences';
+import { media } from '~/components/elements/styles';
 
 import { auth } from '~/lib/firebase';
+
+const ResponsiveTabs = styled(Tabs)`
+  button div {
+    font-size: 0;
+    ${media.tablet`
+      font-size: 14px
+    `}
+  }
+`;
 
 @observer
 export default class SettingsPanel extends React.Component {
   state = {
-    open: false
+    open: true
   };
 
   handleOpen = () => {
@@ -66,7 +77,7 @@ export default class SettingsPanel extends React.Component {
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
         >
-          <Tabs>
+          <ResponsiveTabs>
             <Tab
               icon={<FontIcon className="fa fa-check-square-o" />}
               label="TODO"
@@ -85,7 +96,7 @@ export default class SettingsPanel extends React.Component {
             >
               <Preferences />
             </Tab>
-          </Tabs>
+          </ResponsiveTabs>
         </Dialog>
       </div>
     );

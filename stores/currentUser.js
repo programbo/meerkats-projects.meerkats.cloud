@@ -9,7 +9,6 @@ class CurrentUser {
   constructor() {
     auth().onAuthStateChanged(currentUser => {
       this.user = currentUser;
-      console.log('currentUser', currentUser); // eslint-disable-line no-console
       this.pending = false;
     });
   }
