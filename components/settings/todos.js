@@ -17,25 +17,6 @@ import { red600, red900 } from 'material-ui/styles/colors';
 
 import { todos } from '~/stores';
 
-const handleToggle = ({ target: { id } }, completed) => {
-  todos.set(id, completed);
-};
-
-const handleEdit = ({ target: { name, value } }) => {
-  todos.edit(name, value);
-};
-
-const handleAdd = ({ key, target }) => {
-  if (key === 'Enter') {
-    todos.add(target.value);
-    target.value = '';
-  }
-};
-
-const handleRemove = id => {
-  todos.remove(id);
-};
-
 const Task = styled(TextField)`
   .completed & input {
     opacity: 0.3;
@@ -51,43 +32,93 @@ const Task = styled(TextField)`
   }
 `;
 
-const action = {
-  width: '24px'
-};
+@observer
+export default class Todos extends React.Component {
+  state = { ready: true };
 
-export default observer(() => (
-  <Table selectable={false}>
-    <TableHeader>
-      <TableRow>
-        <TableHeaderColumn colSpan="2">
-          <Task
-            hintText="Add a task"
-            style={{ lineHeight: '20px' }}
-            onKeyPress={handleAdd}
-          />
-        </TableHeaderColumn>
-      </TableRow>
-    </TableHeader>
-    <TableBody displayRowCheckbox={false}>
-      {todos.sortedValues.map(({ id, task, completed }) => (
-        <TableRow key={id}>
-          <TableRowColumn style={action}>
-            <Checkbox id={id} onCheck={handleToggle} checked={completed} />
-          </TableRowColumn>
-          <TableRowColumn className={classnames({ completed })}>
-            <Task name={id} defaultValue={task} onChange={handleEdit} />
-          </TableRowColumn>
-          <TableRowColumn style={action} className={classnames({ completed })}>
-            <IconButton name={id} onTouchTap={handleRemove.bind(this, id)}>
-              <FontIcon
-                className="fa fa-minus-circle"
-                color={red600}
-                hoverColor={red900}
-              />
-            </IconButton>
-          </TableRowColumn>
-        </TableRow>
-      ))}
-    </TableBody>
-  </Table>
-));
+  action = { width: '24px' };
+
+  handleToggle = ({ target: { id } }, completed) => {
+    todos.set(id, completed);
+  };
+
+  handleEdit = ({ target: { name, value } }) => {
+    todos.edit(name, value);
+  };
+
+  handleAdd = ({ key, target }) => {
+    if (key === 'Enter') {
+      todos.add(target.value);
+      target.value = '';
+    }
+  };
+
+  handleRemove = id => {
+    todos.remove(id);
+  };
+
+  handleBlur = ({ target }) => {
+    this.setState({ ready: false });
+    setTimeout(
+      () => {
+        this.setState({ ready: true });
+      },
+      0
+    );
+  };
+
+  render() {
+    return (
+      <Table selectable={false}>
+        <TableHeader>
+          <TableRow>
+            <TableHeaderColumn colSpan="2">
+              {this.state.ready &&
+                <Task
+                  hintText="Add a task"
+                  style={{ lineHeight: '20px' }}
+                  onKeyPress={this.handleAdd}
+                  onBlur={this.handleBlur}
+                />}
+            </TableHeaderColumn>
+          </TableRow>
+        </TableHeader>
+        <TableBody displayRowCheckbox={false}>
+          {todos.sortedValues.map(({ id, task, completed }) => (
+            <TableRow key={id}>
+              <TableRowColumn style={this.action}>
+                <Checkbox
+                  id={id}
+                  onCheck={this.handleToggle}
+                  checked={completed}
+                />
+              </TableRowColumn>
+              <TableRowColumn className={classnames({ completed })}>
+                <Task
+                  name={id}
+                  defaultValue={task}
+                  onChange={this.handleEdit}
+                />
+              </TableRowColumn>
+              <TableRowColumn
+                style={this.action}
+                className={classnames({ completed })}
+              >
+                <IconButton
+                  name={id}
+                  onTouchTap={this.handleRemove.bind(this, id)}
+                >
+                  <FontIcon
+                    className="fa fa-minus-circle"
+                    color={red600}
+                    hoverColor={red900}
+                  />
+                </IconButton>
+              </TableRowColumn>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+    );
+  }
+}
