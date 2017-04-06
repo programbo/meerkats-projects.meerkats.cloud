@@ -33,12 +33,10 @@ export default class SettingsPanel extends React.Component {
 
   handleOpen = () => {
     app.showSettings = true;
-    // this.setState({ open: true });
   };
 
   handleClose = () => {
     app.showSettings = false;
-    // this.setState({ open: false });
   };
 
   handleLogout = async () => {
