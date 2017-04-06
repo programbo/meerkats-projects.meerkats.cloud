@@ -3,9 +3,10 @@ import { observer } from 'mobx-react';
 import styled from 'styled-components';
 import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
+import FontIcon from 'material-ui/FontIcon';
 import CircularProgress from 'material-ui/CircularProgress';
 
-import { square, fill } from '~/components/elements/styles';
+import { square, fill, centered } from '~/components/elements/styles';
 import { storage } from '~/lib/firebase';
 import { currentUser, users } from '~/stores';
 
@@ -19,7 +20,21 @@ const AvatarButton = styled.label`
   ${square('120px')}
   position: relative;
   display: block;
-  padding: 20px;
+  margin: 20px;
+`;
+
+const UploadIcon = styled(FontIcon)`
+  ${centered()}
+  ${square('120px')}
+  line-height: 120px;
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  opacity: 0.0001;
+  transition: opacity 500ms ease;
+  *:hover > & {
+    opacity: 1;
+  }
 `;
 
 @observer
@@ -56,6 +71,11 @@ export default class Preferences extends React.Component {
           />
           {this.state.uploadingAvatar &&
             <CircularProgress size={120} thickness={7} />}
+          <UploadIcon
+            className="fa fa-upload"
+            color="white"
+            style={{ fontSize: 48, lineHeight: '120px' }}
+          />
           <ImageInput type="file" onChange={this.handleUpload} />
         </AvatarButton>
       </div>
