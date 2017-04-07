@@ -66,7 +66,7 @@ export default class Preferences extends React.Component {
         <AvatarButton>
           <Avatar
             size={120}
-            src={currentUser.profile.avatar}
+            src={users.currentUser.avatar}
             style={{ position: 'absolute' }}
           />
           {this.state.uploadingAvatar &&
@@ -78,6 +78,7 @@ export default class Preferences extends React.Component {
           />
           <ImageInput type="file" onChange={this.handleUpload} />
         </AvatarButton>
+        <pre>{JSON.stringify(users.currentUser)}</pre>
       </div>
     );
   }

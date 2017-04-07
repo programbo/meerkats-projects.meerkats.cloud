@@ -3,9 +3,13 @@ import firebase, { auth, root } from '~/lib/firebase';
 
 class Users {
   @observable users = observable.map({});
+  @observable authenticatedUser = null;
+  @observable pending = true;
 
   constructor() {
     auth().onAuthStateChanged(authenticatedUser => {
+      this.authenticatedUser = authenticatedUser;
+      this.pending = false;
       if (authenticatedUser) {
         firebase.users.on('value', this.refresh);
       } else {
@@ -24,10 +28,14 @@ class Users {
     return keys.map(id => ({ id, ...data[id] }));
   }
 
-  refresh = users => this.users = users.val();
+  @computed get currentUser() {
+    if (!this.authenticatedUser) {
+      return null;
+    }
+    return this.values.find(({ uid }) => uid === this.authenticatedUser.uid);
+  }
 
-  findUser = ({ email }) =>
-    root.child('/users').orderByChild('email').equalTo(email).once('value');
+  refresh = users => this.users = users.val();
 
   add = async user => {
     firebase.users.child(user.uid).update(user);
