@@ -18,7 +18,7 @@ const ImageInput = styled.input`
 `;
 
 const AvatarButton = styled.label`
-  ${square('120px')}
+  ${square('130px')}
   position: relative;
   display: block;
   margin: 20px;
@@ -26,8 +26,8 @@ const AvatarButton = styled.label`
 
 const UploadIcon = styled(FontIcon)`
   ${centered()}
-  ${square('120px')}
-  line-height: 120px;
+  ${square('130px')}
+  line-height: 130px;
   text-align: center;
   background-color: rgba(0, 0, 0, 0.5);
   border-radius: 50%;
@@ -86,16 +86,16 @@ export default class Preferences extends React.Component {
       <Profile>
         <AvatarButton>
           <Avatar
-            size={120}
+            size={130}
             src={users.currentUser.avatar}
             style={{ position: 'absolute' }}
           />
           {this.state.uploadingAvatar &&
-            <CircularProgress size={120} thickness={7} />}
+            <CircularProgress size={130} thickness={7} />}
           <UploadIcon
             className="fa fa-upload"
             color="white"
-            style={{ fontSize: 48, lineHeight: '120px' }}
+            style={{ fontSize: 48, lineHeight: '130px' }}
           />
           <ImageInput type="file" onChange={this.handleUpload} />
         </AvatarButton>
@@ -111,7 +111,14 @@ export default class Preferences extends React.Component {
             hintText="Email"
             value={users.currentUser.email}
             style={profileInputStyle}
-            disabled
+            readonly
+          />
+          <TextField
+            name="jobTitle"
+            hintText="Job title"
+            value={users.currentUser.jobTitle}
+            style={profileInputStyle}
+            onChange={this.handleEdit}
           />
         </ProfileDetails>
       </Profile>
