@@ -95,7 +95,12 @@ export default class Todos extends React.Component {
                 />
               </TableRowColumn>
               <TableRowColumn className={classnames({ completed })}>
-                <Task name={id} value={task} onChange={this.handleEdit} />
+                <Task
+                  name={id}
+                  value={task}
+                  onChange={this.handleEdit}
+                  style={{ width: '100%' }}
+                />
               </TableRowColumn>
               <TableRowColumn
                 style={this.action}

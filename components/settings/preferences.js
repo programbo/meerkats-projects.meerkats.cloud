@@ -5,6 +5,7 @@ import Avatar from 'material-ui/Avatar';
 import FlatButton from 'material-ui/FlatButton';
 import FontIcon from 'material-ui/FontIcon';
 import CircularProgress from 'material-ui/CircularProgress';
+import TextField from 'material-ui/TextField';
 
 import { square, fill, centered } from '~/components/elements/styles';
 import { storage } from '~/lib/firebase';
@@ -37,6 +38,22 @@ const UploadIcon = styled(FontIcon)`
   }
 `;
 
+const Profile = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`;
+
+const ProfileDetails = styled.div`
+  display: flex;
+  flex-flow: column nowrap;
+  width: 100%;
+  margin-top: 10px;
+`;
+
+const profileInputStyle = {
+  width: '100%'
+};
+
 @observer
 export default class Preferences extends React.Component {
   state = { uploadingAvatar: false };
@@ -51,7 +68,7 @@ export default class Preferences extends React.Component {
       );
       try {
         const snapshot = await avatarRef.put(image);
-        users.set(currentUser.user.uid, 'avatar', snapshot.downloadURL);
+        users.set(users.currentUser.uid, 'avatar', snapshot.downloadURL);
       } catch (error) {
         console.log('error', error); // eslint-disable-line no-console
       } finally {
@@ -60,9 +77,13 @@ export default class Preferences extends React.Component {
     }
   };
 
+  handleEdit = ({ target }) => {
+    users.set(users.currentUser.uid, target.name, target.value);
+  };
+
   render() {
     return (
-      <div>
+      <Profile>
         <AvatarButton>
           <Avatar
             size={120}
@@ -78,8 +99,22 @@ export default class Preferences extends React.Component {
           />
           <ImageInput type="file" onChange={this.handleUpload} />
         </AvatarButton>
-        <pre>{JSON.stringify(users.currentUser)}</pre>
-      </div>
+        <ProfileDetails>
+          <TextField
+            name="displayName"
+            hintText="Display name"
+            value={users.currentUser.displayName}
+            style={profileInputStyle}
+            onChange={this.handleEdit}
+          />
+          <TextField
+            hintText="Email"
+            value={users.currentUser.email}
+            style={profileInputStyle}
+            disabled
+          />
+        </ProfileDetails>
+      </Profile>
     );
   }
 }
