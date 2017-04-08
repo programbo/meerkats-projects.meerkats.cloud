@@ -13,21 +13,22 @@ const LoadingLabel = styled.h1`
   margin: 0;
 `
 
-const LoadingIcon = styled(FontIcon)`
+const Center = styled.div`
   ${centered()}
-  &>* {
-    ${rotate('5s')}
-  }
+`
+
+const SpinningIcon = styled(FontIcon)`
+  ${rotate('5s')}
 `
 
 export default () => (
   <Loading>
-    <LoadingIcon>
-      <FontIcon
+    <Center>
+      <SpinningIcon
         className="fa fa-refresh"
         style={{ fontSize: '20rem', color: '#eee' }}
       />
-    </LoadingIcon>
+    </Center>
     <LoadingLabel>Loading...</LoadingLabel>
   </Loading>
 )
