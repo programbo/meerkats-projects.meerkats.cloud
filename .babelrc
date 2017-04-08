@@ -3,8 +3,8 @@
     "next/babel"
   ],
   "plugins": [
-    "root-import",
     "transform-decorators-legacy",
-    "transform-export-extensions"
+    "transform-export-extensions",
+    "babel-plugin-root-import"
   ]
 }
