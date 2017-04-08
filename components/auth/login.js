@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
+import styled from 'styled-components'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField'
 
-import { auth } from '~/lib/firebase';
+import { auth } from '~/lib/firebase'
 
 const Form = styled.form`
   box-sizing: border-box;
@@ -10,43 +10,44 @@ const Form = styled.form`
   width: 100%;
   padding: 0 20px;
   flex-direction: column;
-`;
+`
 
 const TextInput = styled(TextField)`
   width: 100%;
   & > input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
   }
-`;
+`
 
 export default class Login extends React.Component {
-  constructor() {
-    super();
+  constructor () {
+    super()
     this.state = {
       email: '',
-      password: ''
-    };
+      password: '',
+    }
   }
 
   handleSubmit = async e => {
-    e.preventDefault();
+    e.preventDefault()
     try {
       await auth().signInWithEmailAndPassword(
         this.state.email,
         this.state.password
-      );
-    } catch (error) {
-      const { code, message } = error;
-      console.error(code, message);
+      )
+    }
+    catch (error) {
+      const { code, message } = error
+      console.error(code, message)
     }
   };
 
   handleInput = e => {
-    const { target: { name, value } } = e;
-    this.setState({ [name]: value });
+    const { target: { name, value } } = e
+    this.setState({ [name]: value })
   };
 
-  render() {
+  render () {
     return (
       <Form onSubmit={this.handleSubmit}>
         <TextInput
@@ -75,6 +76,6 @@ export default class Login extends React.Component {
           onClick={this.handleSubmit}
         />
       </Form>
-    );
+    )
   }
 }

@@ -1,4 +1,4 @@
-import Head from 'next/head';
+import Head from 'next/head'
 
 export default ({ title }) => (
   <Head>
@@ -37,4 +37,4 @@ export default ({ title }) => (
       }
     </style>
   </Head>
-);
+)

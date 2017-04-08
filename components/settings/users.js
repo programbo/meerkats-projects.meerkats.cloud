@@ -1,21 +1,21 @@
-import { observer } from 'mobx-react';
-import Avatar from 'material-ui/Avatar';
+import { observer } from 'mobx-react'
+import Avatar from 'material-ui/Avatar'
 import {
   Table,
   TableBody,
   TableHeader,
   TableHeaderColumn,
   TableRow,
-  TableRowColumn
-} from 'material-ui/Table';
+  TableRowColumn,
+} from 'material-ui/Table'
 
-import { users } from '~/stores';
+import { users } from '~/stores'
 
 export default observer(() => (
   <Table>
     <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
       <TableRow>
-        <TableHeaderColumn style={{width: '50px'}}>Avatar</TableHeaderColumn>
+        <TableHeaderColumn style={{ width: '50px' }}>Avatar</TableHeaderColumn>
         <TableHeaderColumn>Display Name</TableHeaderColumn>
         <TableHeaderColumn>Full Name</TableHeaderColumn>
         <TableHeaderColumn>Email</TableHeaderColumn>
@@ -25,7 +25,9 @@ export default observer(() => (
       {users.values.length &&
         users.values.map(({ email }, index) => (
           <TableRow key={index}>
-            <TableRowColumn style={{width: '50px'}}><Avatar>J</Avatar></TableRowColumn>
+            <TableRowColumn style={{ width: '50px' }}>
+              <Avatar>J</Avatar>
+            </TableRowColumn>
             <TableRowColumn>John</TableRowColumn>
             <TableRowColumn>John Lombardo</TableRowColumn>
             <TableRowColumn>{email}</TableRowColumn>
@@ -33,4 +35,4 @@ export default observer(() => (
         ))}
     </TableBody>
   </Table>
-));
+))

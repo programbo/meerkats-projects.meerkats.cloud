@@ -1,44 +1,45 @@
-import { when } from 'mobx';
-import { observer } from 'mobx-react';
-import DevTools from 'mobx-react-devtools';
+import { when } from 'mobx'
+import { observer } from 'mobx-react'
+import DevTools from 'mobx-react-devtools'
 
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
-import { currentUser, users } from '~/stores';
-import Loading from '~/components/loading';
-import Settings from '~/components/settings';
-import { AuthPanel, Logout } from '~/components/auth';
-import { Head } from '~/components/layout';
+import { currentUser, users } from '~/stores'
+import Loading from '~/components/loading'
+import Settings from '~/components/settings'
+import { AuthPanel } from '~/components/auth'
+import { Head } from '~/components/layout'
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
-import injectTapEventPlugin from 'react-tap-event-plugin';
+import injectTapEventPlugin from 'react-tap-event-plugin'
 try {
-  injectTapEventPlugin();
-} catch (e) {}
+  injectTapEventPlugin()
+}
+catch (e) {}
 
 const muiTheme = getMuiTheme({
-  userAgent: 'all'
-});
+  userAgent: 'all',
+})
 
 @observer
 export default class Layout extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { ready: false };
+  constructor (props) {
+    super(props)
+    this.state = { ready: false }
   }
 
-  componentDidMount() {
+  componentDidMount () {
     when(
       () => users.pending === false,
       () => {
-        this.setState({ ready: true });
+        this.setState({ ready: true })
       }
-    );
+    )
   }
 
-  render() {
+  render () {
     return (
       <div>
         <Head />
@@ -52,6 +53,6 @@ export default class Layout extends React.Component {
         </MuiThemeProvider>
         {process.env.NODE_ENV !== 'production' && <DevTools />}
       </div>
-    );
+    )
   }
 }
