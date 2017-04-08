@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "deploy": "now -e NODE_ENV=production",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test": "jest"
   },
   "dependencies": {
     "babel-plugin-root-import": "^5.1.0",
@@ -29,6 +30,10 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.1",
+    "babel-jest": "^19.0.0",
+    "babel-preset-decorators-legacy": "^1.0.0",
+    "babel-preset-es2015": "^6.24.1",
+    "enzyme": "^2.8.0",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.0",
     "eslint-plugin-babel": "^4.1.1",
@@ -37,6 +42,9 @@
     "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^6.10.3",
     "eslint-plugin-standard": "^3.0.1",
-    "mobx-react-devtools": "^4.2.11"
+    "jest-cli": "^19.0.2",
+    "mobx-react-devtools": "^4.2.11",
+    "react-addons-test-utils": "^15.5.0",
+    "react-test-renderer": "^15.5.3"
   }
 }

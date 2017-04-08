@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`With Snapshot Testing renders correctly 1`] = `
+<div>
+  <div>
+    <div
+      className="cTmgId"
+    >
+      <div
+        className="hiBmdg"
+      >
+        <span
+          className="fa fa-refresh KdEXZ"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+          style={
+            Object {
+              "MozUserSelect": "none",
+              "WebkitTransition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+              "WebkitUserSelect": "none",
+              "color": "#eee",
+              "display": "inline-block",
+              "fontSize": "20rem",
+              "msUserSelect": "none",
+              "muiPrepared": true,
+              "position": "relative",
+              "transition": "all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms",
+              "userSelect": "none",
+            }
+          }
+        />
+      </div>
+      <h1
+        className="zZUbt"
+      >
+        Loading...
+      </h1>
+    </div>
+  </div>
+</div>
+`;
