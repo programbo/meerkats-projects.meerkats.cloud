@@ -8,7 +8,7 @@ import TextField from 'material-ui/TextField'
 
 import { square, fill, centered } from '~/components/elements/styles'
 import { storage } from '~/lib/firebase'
-import { currentUser, users } from '~/stores'
+import { users } from '~/stores'
 
 const ImageInput = styled.input`
   ${fill()}
@@ -63,7 +63,7 @@ export default class Preferences extends React.Component {
       const image = files[0]
       const extension = path.extname(image.name)
       const avatarRef = storage.child(
-        `avatars/${currentUser.user.uid}_${image.name}${extension}`,
+        `avatars/${users.currentUser.uid}_${image.name}${extension}`,
       )
       try {
         const snapshot = await avatarRef.put(image)

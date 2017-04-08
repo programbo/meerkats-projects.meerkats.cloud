@@ -6,7 +6,7 @@
   "author": "John Lombardo <john@meerkats.com.au>",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development next",
+    "dev": "next",
     "build": "next build",
     "start": "next start",
     "deploy": "now -e NODE_ENV=production",

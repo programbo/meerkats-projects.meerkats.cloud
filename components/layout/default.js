@@ -5,7 +5,7 @@ import DevTools from 'mobx-react-devtools'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
-import { currentUser, users } from '~/stores'
+import { users } from '~/stores'
 import Loading from '~/components/loading'
 import Settings from '~/components/settings'
 import { AuthPanel } from '~/components/auth'
@@ -35,7 +35,7 @@ export default class Layout extends React.Component {
       () => users.pending === false,
       () => {
         this.setState({ ready: true })
-      }
+      },
     )
   }
 
@@ -47,7 +47,7 @@ export default class Layout extends React.Component {
           <div>
             {users.currentUser && <Settings />}
             {this.state.ready
-              ? currentUser.loggedIn ? this.props.children : <AuthPanel />
+              ? users.currentUser ? this.props.children : <AuthPanel />
               : <Loading />}
           </div>
         </MuiThemeProvider>
