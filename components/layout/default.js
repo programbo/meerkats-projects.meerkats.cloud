@@ -51,7 +51,7 @@ export default class Layout extends React.Component {
               : <Loading />}
           </div>
         </MuiThemeProvider>
-        {process.env.NODE_ENV !== 'production' && <DevTools />}
+        {process.env.NODE_ENV === 'development' && <DevTools />}
       </div>
     )
   }
