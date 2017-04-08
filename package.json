@@ -9,7 +9,8 @@
     "dev": "NODE_ENV=development next",
     "build": "next build",
     "start": "next start",
-    "deploy": "now -e NODE_ENV=production"
+    "deploy": "now -e NODE_ENV=production",
+    "lint": "eslint"
   },
   "dependencies": {
     "babel-plugin-root-import": "^5.1.0",
@@ -27,6 +28,15 @@
     "styled-components": "^1.4.4"
   },
   "devDependencies": {
+    "babel-eslint": "^7.2.1",
+    "eslint": "^3.19.0",
+    "eslint-config-standard": "^10.2.0",
+    "eslint-plugin-babel": "^4.1.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-react": "^6.10.3",
+    "eslint-plugin-standard": "^3.0.1",
     "mobx-react-devtools": "^4.2.11"
   }
 }

@@ -1,7 +1,7 @@
-import { observable, computed, toJS } from 'mobx';
+import { observable } from 'mobx'
 
 class App {
   @observable showSettings = false;
 }
 
-export default new App();
+export default new App()

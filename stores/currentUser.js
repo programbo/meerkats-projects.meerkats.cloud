@@ -1,28 +1,28 @@
-import { observable, computed, toJS } from 'mobx';
-import { auth } from '~/lib/firebase';
-import { users } from '~/stores';
+import { observable, computed } from 'mobx'
+import { auth } from '~/lib/firebase'
+import { users } from '~/stores'
 
 class CurrentUser {
   @observable user = null;
   @observable pending = true;
 
-  constructor() {
+  constructor () {
     auth().onAuthStateChanged(currentUser => {
-      this.user = currentUser;
-      this.pending = false;
-    });
+      this.user = currentUser
+      this.pending = false
+    })
   }
 
-  @computed get profile() {
+  @computed get profile () {
     if (!this.user) {
-      return null;
+      return null
     }
-    return users.values.find(({ email }) => email === this.user.email);
+    return users.values.find(({ email }) => email === this.user.email)
   }
 
-  @computed get loggedIn() {
-    return !!this.user;
+  @computed get loggedIn () {
+    return !!this.user
   }
 }
 
-export default new CurrentUser();
+export default new CurrentUser()

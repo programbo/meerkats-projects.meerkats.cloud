@@ -1,10 +1,10 @@
-import { css, keyframes } from 'styled-components';
+import { css, keyframes } from 'styled-components'
 
 const breakpoints = {
   mobile: 375,
   tablet: 480,
-  desktop: 840
-};
+  desktop: 840,
+}
 
 export const media = Object.keys(breakpoints).reduce(
   (collection, breakpoint) => ({
@@ -13,10 +13,10 @@ export const media = Object.keys(breakpoints).reduce(
       @media (min-width: ${breakpoints[breakpoint]}px) {
         ${css(...args)}
       }
-    `
+    `,
   }),
   {}
-);
+)
 
 export const fill = () => `
   position: absolute;
@@ -25,38 +25,38 @@ export const fill = () => `
   right: 0;
   left: 0;
   width: 100%;
-`;
+`
 
 export const centered = () => `
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-`;
+`
 
 export const fullscreen = () => `
   ${size('100vw', '100vh')}
   position: fixed;
   top: 0;
   left: 0;
-`;
+`
 
 export const size = (width, height) => `
   width: ${width};
   height: ${height};
-`;
+`
 
 export const square = size => `
   width: ${size};
   height: ${size};
-`;
+`
 
 export const truncate = width => `
   width: ${width};
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`;
+`
 
 export const rotate = (duration = '1s') => {
   const rotate360 = keyframes`
@@ -66,8 +66,8 @@ export const rotate = (duration = '1s') => {
     100% {
       transform: rotate(360deg);
     }
-  `;
+  `
   return `
   animation: ${duration} ${rotate360} linear infinite;
-`;
-};
+`
+}

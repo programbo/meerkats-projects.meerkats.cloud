@@ -1,21 +1,21 @@
-import { observer } from 'mobx-react';
-import classnames from 'classnames';
-import styled from 'styled-components';
-import Checkbox from 'material-ui/Checkbox';
-import IconButton from 'material-ui/IconButton';
-import FontIcon from 'material-ui/FontIcon';
-import TextField from 'material-ui/TextField';
+import { observer } from 'mobx-react'
+import classnames from 'classnames'
+import styled from 'styled-components'
+import Checkbox from 'material-ui/Checkbox'
+import IconButton from 'material-ui/IconButton'
+import FontIcon from 'material-ui/FontIcon'
+import TextField from 'material-ui/TextField'
 import {
   Table,
   TableBody,
   TableHeader,
   TableHeaderColumn,
   TableRow,
-  TableRowColumn
-} from 'material-ui/Table';
-import { red600, red900 } from 'material-ui/styles/colors';
+  TableRowColumn,
+} from 'material-ui/Table'
+import { red600, red900 } from 'material-ui/styles/colors'
 
-import { app, todos } from '~/stores';
+import { app, todos } from '~/stores'
 
 const Task = styled(TextField)`
   .completed & input {
@@ -30,7 +30,7 @@ const Task = styled(TextField)`
   hr {
     display: none;
   }
-`;
+`
 
 @observer
 export default class Todos extends React.Component {
@@ -39,36 +39,36 @@ export default class Todos extends React.Component {
   action = { width: '24px' };
 
   handleToggle = ({ target: { id } }, completed) => {
-    todos.set(id, completed);
+    todos.set(id, completed)
   };
 
   handleEdit = ({ target: { name, value } }) => {
-    todos.edit(name, value);
+    todos.edit(name, value)
   };
 
   handleEditNewTask = ({ target: { value } }) => {
-    this.setState({ task: value });
+    this.setState({ task: value })
   };
 
   handleAddNewTask = ({ key }) => {
     if (key === 'Enter') {
-      todos.add(this.state.task);
-      this.setState({ task: '' });
-      this.recenterPanel();
+      todos.add(this.state.task)
+      this.setState({ task: '' })
+      this.recenterPanel()
     }
   };
 
   handleRemove = id => {
-    todos.remove(id);
-    this.recenterPanel();
+    todos.remove(id)
+    this.recenterPanel()
   };
 
   recenterPanel = () => {
-    app.showSettings = false;
-    app.showSettings = true;
+    app.showSettings = false
+    app.showSettings = true
   };
 
-  render() {
+  render () {
     return (
       <Table selectable={false}>
         <TableHeader>
@@ -121,6 +121,6 @@ export default class Todos extends React.Component {
           ))}
         </TableBody>
       </Table>
-    );
+    )
   }
 }

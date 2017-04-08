@@ -1,28 +1,27 @@
-import path from 'path';
-import { observer } from 'mobx-react';
-import styled from 'styled-components';
-import Avatar from 'material-ui/Avatar';
-import FlatButton from 'material-ui/FlatButton';
-import FontIcon from 'material-ui/FontIcon';
-import CircularProgress from 'material-ui/CircularProgress';
-import TextField from 'material-ui/TextField';
+import path from 'path'
+import { observer } from 'mobx-react'
+import styled from 'styled-components'
+import Avatar from 'material-ui/Avatar'
+import FontIcon from 'material-ui/FontIcon'
+import CircularProgress from 'material-ui/CircularProgress'
+import TextField from 'material-ui/TextField'
 
-import { square, fill, centered } from '~/components/elements/styles';
-import { storage } from '~/lib/firebase';
-import { currentUser, users } from '~/stores';
+import { square, fill, centered } from '~/components/elements/styles'
+import { storage } from '~/lib/firebase'
+import { currentUser, users } from '~/stores'
 
 const ImageInput = styled.input`
   ${fill()}
   cursor: pointer;
   opacity: 0;
-`;
+`
 
 const AvatarButton = styled.label`
   ${square('130px')}
   position: relative;
   display: block;
   margin: 20px;
-`;
+`
 
 const UploadIcon = styled(FontIcon)`
   ${centered()}
@@ -36,23 +35,23 @@ const UploadIcon = styled(FontIcon)`
   *:hover > & {
     opacity: 1;
   }
-`;
+`
 
 const Profile = styled.div`
   display: flex;
   flex-flow: row nowrap;
-`;
+`
 
 const ProfileDetails = styled.div`
   display: flex;
   flex-flow: column nowrap;
   width: 100%;
   margin-top: 10px;
-`;
+`
 
 const profileInputStyle = {
-  width: '100%'
-};
+  width: '100%',
+}
 
 @observer
 export default class Preferences extends React.Component {
@@ -60,28 +59,30 @@ export default class Preferences extends React.Component {
 
   handleUpload = async ({ target: { files } }) => {
     if (files.length) {
-      this.setState({ uploadingAvatar: true });
-      const image = files[0];
-      const extension = path.extname(image.name);
+      this.setState({ uploadingAvatar: true })
+      const image = files[0]
+      const extension = path.extname(image.name)
       const avatarRef = storage.child(
-        `avatars/${currentUser.user.uid}_${image.name}${extension}`
-      );
+        `avatars/${currentUser.user.uid}_${image.name}${extension}`,
+      )
       try {
-        const snapshot = await avatarRef.put(image);
-        users.set(users.currentUser.uid, 'avatar', snapshot.downloadURL);
-      } catch (error) {
-        console.log('error', error); // eslint-disable-line no-console
-      } finally {
-        this.setState({ uploadingAvatar: false });
+        const snapshot = await avatarRef.put(image)
+        users.set(users.currentUser.uid, 'avatar', snapshot.downloadURL)
+      }
+      catch (error) {
+        console.log('error', error) // eslint-disable-line no-console
+      }
+      finally {
+        this.setState({ uploadingAvatar: false })
       }
     }
   };
 
   handleEdit = ({ target }) => {
-    users.set(users.currentUser.uid, target.name, target.value);
+    users.set(users.currentUser.uid, target.name, target.value)
   };
 
-  render() {
+  render () {
     return (
       <Profile>
         <AvatarButton>
@@ -122,6 +123,6 @@ export default class Preferences extends React.Component {
           />
         </ProfileDetails>
       </Profile>
-    );
+    )
   }
 }
