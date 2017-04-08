@@ -18,7 +18,7 @@ export default class Connect extends React.Component {
     e.preventDefault()
     try {
       const result = await auth().signInWithPopup(
-        new auth.GoogleAuthProvider()
+        new auth.GoogleAuthProvider(),
       )
       const { email, emailVerified, uid } = result.user
       users.add({ email, emailVerified, uid })

@@ -10,7 +10,7 @@
     "build": "next build",
     "start": "next start",
     "deploy": "now -e NODE_ENV=production",
-    "lint": "eslint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "babel-plugin-root-import": "^5.1.0",

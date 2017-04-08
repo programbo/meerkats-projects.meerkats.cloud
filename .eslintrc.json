@@ -17,6 +17,7 @@
     "object-curly-spacing": ["error", "always"],
     "brace-style": ["error", "stroustrup"],
     "comma-dangle": ["error", "always-multiline"],
+    "import/first": "error",
     "import/named": "error",
     "import/default": "error",
     "react/jsx-uses-react": "error",
