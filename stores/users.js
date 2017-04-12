@@ -6,7 +6,7 @@ class Users {
   @observable authenticatedUser = null;
   @observable pending = true;
 
-  constructor () {
+  constructor() {
     auth().onAuthStateChanged(authenticatedUser => {
       this.authenticatedUser = authenticatedUser
       this.pending = false
@@ -19,21 +19,25 @@ class Users {
     })
   }
 
-  @computed get json () {
+  @computed get json() {
     return toJS(this.users)
   }
 
-  @computed get values () {
+  @computed get values() {
     const data = this.json
     const keys = Object.keys(data)
     return keys.map(id => ({ id, ...data[id] }))
   }
 
-  @computed get currentUser () {
+  @computed get currentUser() {
     if (!this.authenticatedUser) {
       return null
     }
     return this.values.find(({ uid }) => uid === this.authenticatedUser.uid)
+  }
+
+  @computed get loggedIn() {
+    return !!this.authenticatedUser
   }
 
   refresh = users => {

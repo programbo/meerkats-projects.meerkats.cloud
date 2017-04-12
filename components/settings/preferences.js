@@ -112,7 +112,7 @@ export default class Preferences extends React.Component {
             hintText="Email"
             value={users.currentUser.email}
             style={profileInputStyle}
-            readonly
+            readOnly
           />
           <TextField
             name="jobTitle"
