@@ -17,19 +17,19 @@ export default observer(() => (
       <TableRow>
         <TableHeaderColumn style={{ width: '50px' }}>Avatar</TableHeaderColumn>
         <TableHeaderColumn>Display Name</TableHeaderColumn>
-        <TableHeaderColumn>Full Name</TableHeaderColumn>
         <TableHeaderColumn>Email</TableHeaderColumn>
       </TableRow>
     </TableHeader>
     <TableBody displayRowCheckbox={false}>
       {users.values.length &&
-        users.values.map(({ email }, index) => (
+        users.values.map(({ email, displayName, avatar }, index) => (
           <TableRow key={index}>
             <TableRowColumn style={{ width: '50px' }}>
-              <Avatar>J</Avatar>
+              {avatar
+                ? <Avatar src={avatar} />
+                : <Avatar>{email[0].toUpperCase()}</Avatar>}
             </TableRowColumn>
-            <TableRowColumn>John</TableRowColumn>
-            <TableRowColumn>John Lombardo</TableRowColumn>
+            <TableRowColumn>{displayName}</TableRowColumn>
             <TableRowColumn>{email}</TableRowColumn>
           </TableRow>
         ))}
