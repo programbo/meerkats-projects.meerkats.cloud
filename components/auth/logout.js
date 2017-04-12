@@ -1,12 +1,11 @@
-import { auth } from '~/lib/firebase'
+import FlatButton from 'material-ui/FlatButton'
+import { red600, red900 } from 'material-ui/styles/colors'
 
-const handleLogout = async () => {
-  await auth().signOut()
-  console.log('Signed out')
-}
-
-export default () => (
-  <div className="logout-container">
-    <button className="logout-button" onClick={handleLogout}>Logout</button>
-  </div>
+export default props => (
+  <FlatButton
+    label="Logout"
+    backgroundColor={red600}
+    hoverColor={red900}
+    {...props}
+  />
 )

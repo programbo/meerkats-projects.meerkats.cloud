@@ -5,13 +5,13 @@ import Dialog from 'material-ui/Dialog'
 import FlatButton from 'material-ui/FlatButton'
 import FontIcon from 'material-ui/FontIcon'
 import { Tabs, Tab } from 'material-ui/Tabs'
-import { red600, red900 } from 'material-ui/styles/colors'
 
 import { app } from '~/stores'
 import Todos from '~/components/settings/todos'
 import Projects from '~/components/settings/projects'
 import Users from '~/components/settings/users'
 import Preferences from '~/components/settings/preferences'
+import LogoutButton from '~/components/auth/logout'
 import { media } from '~/components/elements/styles'
 
 import { auth } from '~/lib/firebase'
@@ -44,17 +44,12 @@ export default class SettingsPanel extends React.Component {
     auth().signOut()
   };
 
-  render () {
+  render() {
     const actions = [
-      (
-      <FlatButton
-          label="Logout"
-          backgroundColor={red600}
-          hoverColor={red900}
-          onTouchTap={this.handleLogout}
-          style={{ float: 'left', color: 'white' }}
-        />
-      ),
+      <LogoutButton
+        onTouchTap={this.handleLogout}
+        style={{ float: 'left', color: 'white' }}
+      />,
       <FlatButton label="Close" primary={true} onTouchTap={this.handleClose} />,
     ]
     return (
