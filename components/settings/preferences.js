@@ -20,7 +20,7 @@ const AvatarButton = styled.label`
   ${square('130px')}
   position: relative;
   display: block;
-  margin: 20px;
+  margin: 20px 30px 20px 20px;
 `
 
 const UploadIcon = styled(FontIcon)`
@@ -82,7 +82,7 @@ export default class Preferences extends React.Component {
     users.set(users.currentUser.uid, target.name, target.value)
   };
 
-  render () {
+  render() {
     return (
       <Profile>
         <AvatarButton>
