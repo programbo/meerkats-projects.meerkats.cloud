@@ -27,10 +27,6 @@ const ResponsiveTabs = styled(Tabs)`
 
 @observer
 export default class SettingsPanel extends React.Component {
-  state = {
-    open: true,
-  };
-
   handleOpen = () => {
     app.showSettings = true
   };
