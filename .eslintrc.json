@@ -17,6 +17,11 @@
     "object-curly-spacing": ["error", "always"],
     "brace-style": ["error", "stroustrup"],
     "comma-dangle": ["error", "always-multiline"],
+    "space-before-function-paren": ["error", {
+      "anonymous": "always",
+      "named": "never",
+      "asyncArrow": "always"
+    }],
     "import/first": "error",
     "import/named": "error",
     "import/default": "error",
