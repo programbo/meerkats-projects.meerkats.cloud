@@ -68,7 +68,7 @@ export default class Todos extends React.Component {
     app.showSettings = true
   };
 
-  render () {
+  render() {
     return (
       <Table selectable={false}>
         <TableHeader>
