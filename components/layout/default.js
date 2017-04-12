@@ -25,16 +25,19 @@ const muiTheme = getMuiTheme({
 
 @observer
 export default class Layout extends React.Component {
-  constructor(props) {
-    super(props)
-    this.state = { ready: false }
-  }
+  state = { ready: false };
 
   componentDidMount() {
     when(
       () => users.pending === false,
       () => {
         this.setState({ ready: true })
+      },
+    )
+    when(
+      () => users.pending === true,
+      () => {
+        this.setState({ ready: false })
       },
     )
   }
@@ -46,8 +49,8 @@ export default class Layout extends React.Component {
         <MuiThemeProvider muiTheme={muiTheme}>
           <div>
             {users.loggedIn && users.currentUser && <Settings />}
-            {users.pending ||
-              (!users.pending && users.loggedIn && !users.currentUser)
+            {!this.state.ready ||
+              (this.state.ready && users.loggedIn && !users.currentUser)
               ? <Loading />
               : users.loggedIn ? this.props.children : <AuthPanel />}
           </div>
