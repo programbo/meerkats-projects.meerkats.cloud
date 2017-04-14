@@ -54,18 +54,11 @@ export default class Todos extends React.Component {
     if (key === 'Enter') {
       todos.add(this.state.task)
       this.setState({ task: '' })
-      this.recenterPanel()
     }
   };
 
   handleRemove = id => {
     todos.remove(id)
-    this.recenterPanel()
-  };
-
-  recenterPanel = () => {
-    app.showSettings = false
-    app.showSettings = true
   };
 
   render() {
