@@ -1,4 +1,3 @@
-import path from 'path'
 import { observer } from 'mobx-react'
 import styled from 'styled-components'
 import Avatar from 'material-ui/Avatar'
@@ -61,9 +60,8 @@ export default class Preferences extends React.Component {
     if (files.length) {
       this.setState({ uploadingAvatar: true })
       const image = files[0]
-      const extension = path.extname(image.name)
       const avatarRef = storage.child(
-        `avatars/${users.currentUser.uid}_${image.name}${extension}`,
+        `avatars/${users.currentUser.uid}_${image.name}`,
       )
       try {
         const snapshot = await avatarRef.put(image)
