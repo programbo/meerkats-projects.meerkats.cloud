@@ -23,8 +23,12 @@ const database = projectId => {
         databaseURL: `https://${projectId}.firebaseio.com`,
       })
     }
-    catch (error) {}
-    db = admin.database()
+    catch (error) {
+      console.log('Error initializing default Firebase app:', error)
+    }
+    finally {
+      db = admin.database()
+    }
   }
   return db
 }
@@ -113,16 +117,16 @@ module.exports = functions.storage.object().onChange(({
 
   // Create the temp directory where the storage file will be downloaded.
   return mkdirp(tempLocalDir)
-    .then(download(bucketRef, filePath, tempLocalFile), handleError('download'))
+    .then(download(bucketRef, filePath, tempLocalFile), handleError('mkdirp'))
     .then(
       createThumbnail(tempLocalFile, tempLocalThumbFile, THUMB_MAX_SIZE),
-      handleError('createThumbnail')
+      handleError('download')
     )
     .then(
       upload(bucketRef, tempLocalThumbFile, thumbFilePath),
-      handleError('upload')
+      handleError('createThumbnail')
     )
-    .then(updateUser, handleError('updateUser'))
+    .then(updateUser, handleError('upload'))
     .catch(error => {
       console.error('Error creating thumbnail:', error)
     })
