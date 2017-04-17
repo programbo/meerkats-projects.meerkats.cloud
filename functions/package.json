@@ -1,0 +1,15 @@
+{
+  "name": "generate-thumbnail",
+  "version": "1.0.0",
+  "description": "Watches for new images and generates a thumbnail",
+  "main": "index.js",
+  "author": "John Lombardo <john@meerkats.com.au>",
+  "license": "MIT",
+  "dependencies": {
+    "@google-cloud/storage": "^1.0.0",
+    "child-process-promise": "^2.2.1",
+    "firebase-admin": "^4.2.1",
+    "firebase-functions": "^0.5.5",
+    "mkdirp-promise": "^5.0.1"
+  }
+}
