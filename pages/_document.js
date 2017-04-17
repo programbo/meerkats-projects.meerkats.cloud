@@ -2,7 +2,7 @@ import Document, { Head, Main, NextScript } from 'next/document'
 import styleSheet from 'styled-components/lib/models/StyleSheet'
 
 export default class MyDocument extends Document {
-  static async getInitialProps ({ renderPage }) {
+  static async getInitialProps({ renderPage }) {
     const page = renderPage()
     const styles = (
       <style
@@ -14,12 +14,10 @@ export default class MyDocument extends Document {
     return { ...page, styles }
   }
 
-  render () {
+  render() {
     return (
       <html>
-        <Head>
-          <title>My page</title>
-        </Head>
+        <Head />
         <body>
           <Main />
           <NextScript />
