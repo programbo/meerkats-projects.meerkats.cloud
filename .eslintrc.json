@@ -16,7 +16,11 @@
   "rules": {
     "object-curly-spacing": ["error", "always"],
     "brace-style": ["error", "stroustrup"],
-    "comma-dangle": ["error", "always-multiline"],
+    "comma-dangle": ["error", {
+      "functions": "never",
+      "arrays": "always-multiline",
+      "objects": "always-multiline"
+    }],
     "space-before-function-paren": ["error", {
       "anonymous": "always",
       "named": "never",

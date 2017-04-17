@@ -25,20 +25,14 @@ const muiTheme = getMuiTheme({
 
 @observer
 export default class Layout extends React.Component {
-  state = { ready: false };
+  state = { ready: false }
 
   componentDidMount() {
     when(
-      () => users.pending === false,
+      () => users.pending === this.state.ready,
       () => {
-        this.setState({ ready: true })
-      },
-    )
-    when(
-      () => users.pending === true,
-      () => {
-        this.setState({ ready: false })
-      },
+        this.setState({ ready: !this.state.ready })
+      }
     )
   }
 
