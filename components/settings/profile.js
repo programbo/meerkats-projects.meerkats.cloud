@@ -43,7 +43,7 @@ const AvatarButton = styled.label`
   .uploading &:after {
     content: 'Uploading...';
   }
-  .optimizing &:after {
+  .optimizing:not(.uploading) &:after {
     content: 'Optimizing...';
   }
   .uploading &,

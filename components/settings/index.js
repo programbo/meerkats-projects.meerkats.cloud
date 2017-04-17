@@ -9,7 +9,7 @@ import { Tabs, Tab } from 'material-ui/Tabs'
 import { app } from '~/stores'
 import Projects from '~/components/settings/projects'
 import Users from '~/components/settings/users'
-import Preferences from '~/components/settings/preferences'
+import Profile from '~/components/settings/profile'
 import LogoutButton from '~/components/auth/logout'
 import { media } from '~/components/elements/styles'
 
@@ -28,16 +28,16 @@ const ResponsiveTabs = styled(Tabs)`
 export default class SettingsPanel extends React.Component {
   handleOpen = () => {
     app.showSettings = true
-  };
+  }
 
   handleClose = () => {
     app.showSettings = false
-  };
+  }
 
   handleLogout = async () => {
     this.handleClose()
     auth().signOut()
-  };
+  }
 
   render() {
     const actions = [
@@ -75,11 +75,8 @@ export default class SettingsPanel extends React.Component {
             <Tab icon={<FontIcon className="fa fa-users" />} label="USERS">
               <Users />
             </Tab>
-            <Tab
-              icon={<FontIcon className="fa fa-sliders" />}
-              label="PREFERENCES"
-            >
-              <Preferences />
+            <Tab icon={<FontIcon className="fa fa-user" />} label="PROFILE">
+              <Profile />
             </Tab>
           </ResponsiveTabs>
         </Dialog>
