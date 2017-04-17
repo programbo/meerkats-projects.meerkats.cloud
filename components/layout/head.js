@@ -17,9 +17,9 @@ export default ({ title }) => (
       rel="stylesheet"
       href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto:300,500,900"
     />
+    <script src="/static/modernizr.js" />
     <style>
-      {
-        `
+      {`
         body {
           box-sizing: border-box;
           min-height: 100vh;
@@ -27,14 +27,13 @@ export default ({ title }) => (
           padding: 40px;
           font-size: 16px;
           font-weight: 300;
-          font-family: 'Open Sans', sans-serif;
+          font-family: 'Open Sans', 'Arial Black', sans-serif;
         }
         h1, h2, h3, h4, h5, h6 {
           font-weight: 900;
-          font-family: 'Roboto', sans-serif;
+          font-family: 'Roboto', 'Helvetic Neue', 'Helvetica', sans-serif;
         }
-      `
-      }
+      `}
     </style>
   </Head>
 )

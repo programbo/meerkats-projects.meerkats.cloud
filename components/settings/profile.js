@@ -67,7 +67,7 @@ const UploadIcon = styled(FontIcon)`
   border-radius: 50%;
   opacity: 0.0001;
   transition: opacity 500ms ease;
-  *:hover > & {
+  html.no-touchevents *:hover > & {
     opacity: 1;
   }
 `
