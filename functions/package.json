@@ -10,6 +10,7 @@
     "child-process-promise": "^2.2.1",
     "firebase-admin": "^4.2.1",
     "firebase-functions": "^0.5.5",
-    "mkdirp-promise": "^5.0.1"
+    "mkdirp-promise": "^5.0.1",
+    "promise-retry": "^1.1.1"
   }
 }

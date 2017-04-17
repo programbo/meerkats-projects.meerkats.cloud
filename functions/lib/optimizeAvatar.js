@@ -5,12 +5,14 @@ const admin = require('firebase-admin')
 const mkdirp = require('mkdirp-promise')
 const gcs = require('@google-cloud/storage')()
 const spawn = require('child-process-promise').spawn
+const promiseRetry = require('promise-retry')
 
 const LOCAL_TMP_FOLDER = '/tmp/'
 const THUMB_MAX_SIZE = 400
 const THUMB_PREFIX = 'thumb_'
 
 let db
+let retryOptimizeAvatar
 
 // Return a reference to the project database
 const database = projectId => {
@@ -35,7 +37,10 @@ const getUID = fileName => {
 }
 
 const download = (bucket, filePath, destination) => () =>
-  bucket.file(filePath).download({ destination })
+  promiseRetry(retry => {
+    retryOptimizeAvatar = retry
+    return bucket.file(filePath).download({ destination })
+  })
 
 const createThumbnail = (original, thumbnail, size) => () =>
   spawn('convert', [
@@ -73,6 +78,7 @@ const updateUser = file => {
 
 const handleError = label => error => {
   console.error(`Error [${label}]:`, error)
+  retryOptimizeAvatar()
 }
 
 /**
