@@ -28,16 +28,17 @@ const ResponsiveTabs = styled(Tabs)`
 export default class SettingsPanel extends React.Component {
   handleOpen = () => {
     app.showSettings = true
-  }
+  };
 
   handleClose = () => {
     app.showSettings = false
-  }
+  };
 
   handleLogout = async () => {
+    app.block()
     this.handleClose()
     auth().signOut()
-  }
+  };
 
   render() {
     const actions = [
@@ -48,7 +49,7 @@ export default class SettingsPanel extends React.Component {
       <FlatButton label="Close" primary={true} onTouchTap={this.handleClose} />,
     ]
     return (
-      <div>
+      <div className="settings">
         <IconButton
           iconClassName="fa fa-cog"
           onTouchTap={this.handleOpen}

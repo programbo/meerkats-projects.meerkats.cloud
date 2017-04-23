@@ -1,21 +1,22 @@
 import { observable, computed, toJS } from 'mobx'
 import firebase, { auth } from '~/lib/firebase'
+import app from '~/stores/app'
 
 class Users {
   @observable users = observable.map({});
   @observable authenticatedUser = null;
-  @observable pending = true;
 
   constructor() {
+    app.block()
     auth().onAuthStateChanged(authenticatedUser => {
       this.authenticatedUser = authenticatedUser
-      this.pending = false
       if (authenticatedUser) {
         firebase.users.on('value', this.refresh)
       }
       else {
         firebase.users.off('value', this.refresh)
       }
+      app.unblock()
     })
   }
 
@@ -58,6 +59,12 @@ class Users {
 
   remove = id => {
     firebase.users.child(id).remove()
+  };
+
+  // Populating data
+  getUser = async id => {
+    const user = await firebase.users.child(`${id}`).once('value')
+    return user
   };
 }
 

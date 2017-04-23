@@ -3,7 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 
 import { auth } from '~/lib/firebase'
-import { users } from '~/stores'
+import { app, users } from '~/stores'
 
 const Form = styled.form`
   box-sizing: border-box;
@@ -24,18 +24,15 @@ export default class Login extends React.Component {
   handleSubmit = async e => {
     e.preventDefault()
     try {
-      users.pending = true
+      app.block()
       await auth().signInWithEmailAndPassword(
         this.state.email,
-        this.state.password,
+        this.state.password
       )
     }
     catch (error) {
       const { code, message } = error
       console.error(code, message)
-    }
-    finally {
-      users.pending = false
     }
   };
 

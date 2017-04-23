@@ -22,9 +22,8 @@ export default ({ title }) => (
       {`
         body {
           box-sizing: border-box;
-          min-height: 100vh;
           margin: 0;
-          padding: 40px;
+          padding: 0;
           font-size: 16px;
           font-weight: 300;
           font-family: 'Open Sans', 'Arial Black', sans-serif;

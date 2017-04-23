@@ -4,7 +4,7 @@ import firebase, { auth } from '../lib/firebase'
 class Projects {
   @observable projects = observable.map({});
 
-  constructor () {
+  constructor() {
     auth().onAuthStateChanged(currentUser => {
       if (currentUser) {
         firebase.projects.on('value', this.refresh)
@@ -15,18 +15,18 @@ class Projects {
     })
   }
 
-  @computed get json () {
+  @computed get json() {
     return toJS(this.projects)
   }
 
-  @computed get values () {
+  @computed get values() {
     const data = this.json
     const keys = Object.keys(data)
     return keys.map(id => ({ id, ...data[id] }))
   }
 
-  refresh = users => {
-    this.users = users.val()
+  refresh = projects => {
+    this.projects = projects.val()
   };
 
   add = project => {
@@ -34,8 +34,12 @@ class Projects {
     this.update(id, project)
   };
 
-  update = (id, project) => {
+  set = (id, project) => {
     firebase.projects.update({ [id]: project })
+  };
+
+  update = (id, changes) => {
+    firebase.projects.child(id).update(changes)
   };
 
   remove = id => {
