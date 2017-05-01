@@ -1,8 +1,23 @@
 import { action, computed, observable } from 'mobx'
 
+import { auth, users } from '~/lib/firebase'
+
 class App {
+  @observable user = null;
   @observable showSettings = false;
   @observable blockingCount = 0;
+
+  constructor() {
+    auth().onAuthStateChanged(async user => {
+      if (user) {
+        const profile = await users.child(user.uid).once('value')
+        this.user = profile.val()
+      }
+      else {
+        this.user = null
+      }
+    })
+  }
 
   @computed get ready() {
     return this.blockingCount === 0

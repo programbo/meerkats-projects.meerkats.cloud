@@ -2,30 +2,30 @@ import { observable, computed, toJS } from 'mobx'
 import firebase, { auth } from '~/lib/firebase'
 
 class Todos {
-  @observable todos = observable.map({});
+  @observable items = observable.map({});
 
-  constructor () {
+  constructor() {
     auth().onAuthStateChanged(authenticatedUser => {
       if (authenticatedUser) {
-        firebase.todos.on('value', this.refresh)
+        firebase.todos.on('value', this.populate)
       }
       else {
-        firebase.todos.off('value', this.refresh)
+        firebase.todos.off('value', this.populate)
       }
     })
   }
 
-  @computed get json () {
-    return toJS(this.todos)
+  @computed get json() {
+    return toJS(this.items)
   }
 
-  @computed get values () {
+  @computed get values() {
     const data = this.json
     const keys = Object.keys(data)
     return keys.map(id => ({ id, ...data[id] }))
   }
 
-  @computed get sortedValues () {
+  @computed get sortedValues() {
     return this.values.sort((a, b) => {
       if (a.completed !== b.completed) {
         return a.completed > b.completed ? 1 : -1
@@ -34,8 +34,8 @@ class Todos {
     })
   }
 
-  refresh = todos => {
-    this.todos = todos.val()
+  populate = todos => {
+    this.items = todos.val()
   };
 
   add = async (task, completed = false) => {

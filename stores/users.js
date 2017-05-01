@@ -7,16 +7,13 @@ class Users {
   @observable authenticatedUser = null;
 
   constructor() {
-    app.block()
     auth().onAuthStateChanged(authenticatedUser => {
-      this.authenticatedUser = authenticatedUser
       if (authenticatedUser) {
         firebase.users.on('value', this.refresh)
       }
       else {
         firebase.users.off('value', this.refresh)
       }
-      app.unblock()
     })
   }
 

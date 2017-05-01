@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableHeaderColumn,
   TableRow,
-  TableRowColumn,
+  TableRowColumn
 } from 'material-ui/Table'
 import { red600, red900 } from 'material-ui/styles/colors'
 
@@ -68,6 +68,7 @@ export default class Todos extends React.Component {
           <TableRow>
             <TableHeaderColumn colSpan="2">
               <Task
+                id="add-task-input"
                 value={this.state.task}
                 hintText="Add a task"
                 style={{ lineHeight: '20px' }}
@@ -89,6 +90,7 @@ export default class Todos extends React.Component {
               </TableRowColumn>
               <TableRowColumn className={classnames({ completed })}>
                 <Task
+                  id={id}
                   name={id}
                   value={task}
                   onChange={this.handleEdit}
