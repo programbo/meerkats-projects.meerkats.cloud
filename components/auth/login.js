@@ -3,7 +3,7 @@ import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField'
 
 import { auth } from '~/lib/firebase'
-import { app, users } from '~/stores'
+import { app } from '~/stores'
 
 const Form = styled.form`
   box-sizing: border-box;

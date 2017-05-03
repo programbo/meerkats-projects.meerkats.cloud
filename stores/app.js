@@ -16,6 +16,9 @@ class App {
       else {
         this.user = null
       }
+      if (!this.ready) {
+        this.unblock()
+      }
     })
   }
 
@@ -28,7 +31,7 @@ class App {
     console.log('block', this.blockingCount) // eslint-disable-line no-console
   }
   @action unblock() {
-    this.blockingCount--
+    this.blockingCount = Math.max(this.blockingCount - 1, 0)
     console.log('unblock', this.blockingCount) // eslint-disable-line no-console
   }
 }

@@ -4,12 +4,19 @@ import app from '~/stores/app'
 
 class Users {
   @observable users = observable.map({});
-  @observable authenticatedUser = null;
 
   constructor() {
-    auth().onAuthStateChanged(authenticatedUser => {
+    auth().onAuthStateChanged(async authenticatedUser => {
       if (authenticatedUser) {
         firebase.users.on('value', this.refresh)
+        // const usersSnapshot = await firebase.users
+        //   .child(authenticatedUser.uid)
+        //   .once('value')
+        // const notLoggedIn = !app.user
+        // app.user = usersSnapshot.val()
+        // if (notLoggedIn) {
+        //   app.unblock()
+        // }
       }
       else {
         firebase.users.off('value', this.refresh)
@@ -25,17 +32,6 @@ class Users {
     const data = this.json
     const keys = Object.keys(data)
     return keys.map(id => ({ id, ...data[id] }))
-  }
-
-  @computed get currentUser() {
-    if (!this.authenticatedUser) {
-      return null
-    }
-    return this.values.find(({ uid }) => uid === this.authenticatedUser.uid)
-  }
-
-  @computed get loggedIn() {
-    return !!this.authenticatedUser
   }
 
   refresh = users => {

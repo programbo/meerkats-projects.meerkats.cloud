@@ -76,9 +76,6 @@ export default class SettingsPanel extends React.Component {
             <Tab icon={<FontIcon className="fa fa-users" />} label="USERS">
               <Users />
             </Tab>
-            <Tab icon={<FontIcon className="fa fa-user" />} label="PROFILE">
-              <Profile />
-            </Tab>
           </ResponsiveTabs>
         </Dialog>
       </div>

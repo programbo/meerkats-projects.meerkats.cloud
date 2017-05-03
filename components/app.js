@@ -5,8 +5,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import getMuiTheme from 'material-ui/styles/getMuiTheme'
 
 import Toolbar from '~/components/toolbar'
+import Loading from '~/components/loading'
 import { app } from '~/stores'
-// import Loading from '~/components/loading'
 import Settings from '~/components/settings'
 import { AuthPanel } from '~/components/auth'
 import { Head } from '~/components/layout'
@@ -21,7 +21,8 @@ catch (e) {}
 
 export const getDefaultProps = async ({ req }) => {
   const userAgent = req ? req.headers['user-agent'] : navigator.userAgent
-  if (req) {
+  const props = { userAgent }
+  if (req && req.session.user) {
     const userSnapshot = await req.firebase
       .database()
       .ref(`users/${req.session.user.uid}`)
@@ -29,6 +30,7 @@ export const getDefaultProps = async ({ req }) => {
     app.user = userSnapshot.val()
     return { user: app.user, userAgent }
   }
+  return props
 }
 
 @observer
@@ -42,9 +44,11 @@ export default class Layout extends React.Component {
       <div>
         <Head title={this.props.title} />
         <MuiThemeProvider muiTheme={this.muiTheme}>
-          {app.user
-            ? <div><Toolbar /><Settings />{this.props.children}</div>
-            : <AuthPanel />}
+          {app.ready
+            ? app.user
+                ? <div><Toolbar /><Settings />{this.props.children}</div>
+                : <AuthPanel />
+            : <Loading />}
         </MuiThemeProvider>
         {process.env.NODE_ENV !== 'production' && <DevTools />}
       </div>
