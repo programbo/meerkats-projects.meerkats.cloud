@@ -1,13 +1,53 @@
-import Link from 'next/link'
-import { DefaultLayout } from '~/components/layout'
+import { Component } from 'react'
+import { observer } from 'mobx-react'
+import ProjectDialog from '~/components/projects/dialog'
 
-const Home = () => (
-  <DefaultLayout title="Home">
-    <Link prefetch href="/"><h1>Home</h1></Link>
-    <Link prefetch href="/todo"><h1>Todo</h1></Link>
-    <Link prefetch href="/blog"><h1>Blog</h1></Link>
-    <Link prefetch href="/projects"><h1>Projects</h1></Link>
-  </DefaultLayout>
-)
+import App, { getDefaultProps } from '~/components/app'
+import {
+  CardWrapper,
+  NewProjectCard,
+  ProjectCard,
+  Filler
+} from '~/components/projects/cards'
+import projects from '~/stores/projects'
+
+@observer class Home extends Component {
+  static async getInitialProps(props) {
+    const defaultProps = await getDefaultProps(props)
+    if (props.req) {
+      projects.projects = await this.getProjects(props.req.firebase)
+    }
+    return { ...defaultProps, projects: projects.projects }
+  }
+
+  static async getProjects(firebase) {
+    const projectsSnapshot = await firebase
+      .database()
+      .ref('projects')
+      .once('value')
+    return projectsSnapshot.val()
+  }
+
+  componentWillMount() {
+    projects.projects = this.props.projects
+  }
+
+  render() {
+    return (
+      <App title="Home" {...this.props}>
+        <CardWrapper>
+          <NewProjectCard />
+          {projects.values.map((project, index) => (
+            <ProjectCard project={project} key={index} />
+          ))}
+          <Filler />
+          <Filler />
+          <Filler />
+        </CardWrapper>
+        <ProjectDialog />
+      </App>
+    )
+  }
+}
 
 export default Home

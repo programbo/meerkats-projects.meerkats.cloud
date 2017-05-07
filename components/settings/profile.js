@@ -6,10 +6,32 @@ import Avatar from 'material-ui/Avatar'
 import FontIcon from 'material-ui/FontIcon'
 import CircularProgress from 'material-ui/CircularProgress'
 import TextField from 'material-ui/TextField'
+import Toggle from 'material-ui/Toggle'
+import ChipInput from 'material-ui-chip-input'
 
-import { square, fill, centered } from '~/components/elements/styles'
+import { square, fill, centered, media } from '~/components/elements/styles'
 import { storage } from '~/lib/firebase'
-import { users } from '~/stores'
+import { app, users } from '~/stores'
+
+const styles = {
+  avatar: {
+    position: 'absolute',
+  },
+  uploadIcon: {
+    fontSize: 48,
+    lineHeight: '130px',
+    circularProgress: {},
+    position: 'absolute',
+    zIndex: 1,
+  },
+  toggle: {
+    width: 'auto',
+    margin: '20px 0 0 15px',
+  },
+  profileInput: {
+    width: '100%',
+  },
+}
 
 const ImageInput = styled.input`
   ${fill()}
@@ -26,6 +48,7 @@ const AvatarButton = styled.label`
   position: relative;
   display: block;
   overflow: hidden;
+  margin: 0 auto;
   border-radius: 50%;
   &:after {
     ${fill()}
@@ -74,7 +97,13 @@ const UploadIcon = styled(FontIcon)`
 
 const Profile = styled.div`
   display: flex;
-  flex-flow: row nowrap;
+  padding: 0 20px;
+  flex-flow: column nowrap;
+  ${media.tablet`
+    font-size: 14px
+    padding: 0;
+    flex-flow: row nowrap;
+  `}
 `
 
 const ProfileDetails = styled.div`
@@ -82,28 +111,25 @@ const ProfileDetails = styled.div`
   flex-flow: column nowrap;
   width: 100%;
   margin-top: 10px;
+  padding-right: 20px;
 `
-
-const profileInputStyle = {
-  width: '100%',
-}
 
 @observer
 export default class Preferences extends React.Component {
   state = {
     uploadingAvatar: false,
-  }
+  };
 
   handleUpload = async ({ target: { files } }) => {
     if (files.length) {
       this.setState({ uploadingAvatar: true })
       const image = files[0]
       const avatarRef = storage.child(
-        `avatars/${users.currentUser.uid}${path.extname(image.name)}`
+        `avatars/${app.user.uid}${path.extname(image.name)}`
       )
       try {
         const snapshot = await avatarRef.put(image)
-        users.set(users.currentUser.uid, 'newAvatar', snapshot.downloadURL)
+        users.set(app.user.uid, 'newAvatar', snapshot.downloadURL)
       }
       catch (error) {
         console.log('error', error) // eslint-disable-line no-console
@@ -112,61 +138,97 @@ export default class Preferences extends React.Component {
         this.setState({ uploadingAvatar: false })
       }
     }
-  }
+  };
 
   handleEdit = ({ target }) => {
-    users.set(users.currentUser.uid, target.name, target.value)
-  }
+    users.set(app.user.uid, target.name, target.value)
+  };
+
+  handleToggle = ({ target }, checked) => {
+    users.set(app.user.uid, target.name, checked)
+  };
+
+  handleGroups = chips => {
+    users.set(app.user.uid, 'groups', chips)
+  };
 
   render() {
     return (
       <Profile>
         <AvatarContainer
           className={classnames({
-            optimizing: users.currentUser.newAvatar,
+            optimizing: app.user.newAvatar,
             uploading: this.state.uploadingAvatar,
           })}
         >
           <AvatarButton>
-            <Avatar
-              size={130}
-              src={users.currentUser.avatar}
-              style={{ position: 'absolute' }}
-            />
-            {(this.state.uploadingAvatar || users.currentUser.newAvatar) &&
+            <Avatar size={130} src={app.user.avatar} style={styles.avatar} />
+            {(this.state.uploadingAvatar || app.user.newAvatar) &&
               <CircularProgress
                 size={130}
                 thickness={7}
-                style={{ position: 'absolute', zIndex: 1 }}
+                style={styles.circularProgress}
               />}
             <UploadIcon
               className="fa fa-upload"
               color="white"
-              style={{ fontSize: 48, lineHeight: '130px' }}
+              style={styles.uploadIcon}
             />
             <ImageInput type="file" onChange={this.handleUpload} />
           </AvatarButton>
+          {app.user.admin &&
+            <Toggle
+              label="Admin"
+              name="admin"
+              labelPosition="right"
+              style={styles.toggle}
+              onToggle={this.handleToggle}
+              toggled={app.user.admin}
+            />}
         </AvatarContainer>
         <ProfileDetails>
           <TextField
-            name="displayName"
-            hintText="Display name"
-            value={users.currentUser.displayName}
-            style={profileInputStyle}
+            name="firstName"
+            floatingLabelText="First name"
+            value={app.user.firstName}
+            style={styles.profileInput}
             onChange={this.handleEdit}
           />
           <TextField
-            hintText="Email"
-            value={users.currentUser.email}
-            style={profileInputStyle}
+            name="lastName"
+            floatingLabelText="Last name"
+            value={app.user.lastName}
+            style={styles.profileInput}
+            onChange={this.handleEdit}
+          />
+          <TextField
+            name="displayName"
+            floatingLabelText="Display name (optional)"
+            hintText={`${app.user.firstName} ${app.user.lastName}`}
+            value={app.user.displayName}
+            style={styles.profileInput}
+            onChange={this.handleEdit}
+          />
+          <TextField
+            floatingLabelText="Email address"
+            value={app.user.email}
+            style={styles.profileInput}
             readOnly
           />
           <TextField
             name="jobTitle"
-            hintText="Job title"
-            value={users.currentUser.jobTitle}
-            style={profileInputStyle}
+            floatingLabelText="Job title"
+            value={app.user.jobTitle}
+            style={styles.profileInput}
             onChange={this.handleEdit}
+          />
+          <ChipInput
+            floatingLabelText="Groups"
+            onChange={this.handleGroups}
+            fullWidth
+            fullWidthInput
+            defaultValue={Array.from(app.user.groups || [])}
+            dataSource={users.groups}
           />
         </ProfileDetails>
       </Profile>

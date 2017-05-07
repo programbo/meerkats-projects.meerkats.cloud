@@ -25,9 +25,6 @@ class Todo extends Component {
   render() {
     return (
       <App title="Todo" {...this.props}>
-        <h1>
-          Todo
-        </h1>
         <Todos />
       </App>
     )

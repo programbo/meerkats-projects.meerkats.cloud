@@ -3,10 +3,12 @@ import firebase, { auth } from '../lib/firebase'
 
 class Projects {
   @observable projects = observable.map({});
+  @observable editing = {};
+  @observable showProjectDialog = false;
 
   constructor() {
-    auth().onAuthStateChanged(currentUser => {
-      if (currentUser) {
+    auth().onAuthStateChanged(authenticatedUser => {
+      if (authenticatedUser) {
         firebase.projects.on('value', this.refresh)
       }
       else {
@@ -22,7 +24,7 @@ class Projects {
   @computed get values() {
     const data = this.json
     const keys = Object.keys(data)
-    return keys.map(id => ({ id, ...data[id] }))
+    return keys.map(uid => data[uid])
   }
 
   refresh = projects => {
@@ -30,8 +32,8 @@ class Projects {
   };
 
   add = project => {
-    const id = firebase.projects.push().key
-    this.update(id, project)
+    const uid = firebase.projects.push().key
+    this.update(uid, { ...project, uid })
   };
 
   set = (id, project) => {

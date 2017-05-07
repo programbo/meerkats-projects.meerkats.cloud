@@ -5,6 +5,7 @@
   "plugins": [
     "transform-decorators-legacy",
     "transform-export-extensions",
-    "babel-plugin-root-import"
+    "babel-plugin-root-import",
+    "inline-react-svg"
   ]
 }

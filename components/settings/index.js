@@ -15,6 +15,11 @@ import { media } from '~/components/elements/styles'
 
 import { auth } from '~/lib/firebase'
 
+const styles = {
+  dialogBody: { padding: '0 0 20px' },
+  logoutButton: { float: 'left', color: 'white' },
+}
+
 const ResponsiveTabs = styled(Tabs)`
   button div {
     font-size: 0;
@@ -23,7 +28,6 @@ const ResponsiveTabs = styled(Tabs)`
     `}
   }
 `
-
 @observer
 export default class SettingsPanel extends React.Component {
   handleOpen = () => {
@@ -44,32 +48,25 @@ export default class SettingsPanel extends React.Component {
     const actions = [
       <LogoutButton
         onTouchTap={this.handleLogout}
-        style={{ float: 'left', color: 'white' }}
+        style={styles.logoutButton}
       />,
       <FlatButton label="Close" primary={true} onTouchTap={this.handleClose} />,
     ]
     return (
       <div className="settings">
-        <IconButton
-          iconClassName="fa fa-cog"
-          onTouchTap={this.handleOpen}
-          style={{
-            position: 'absolute',
-            top: 0,
-            right: 0,
-            width: '100px',
-            height: '100px',
-          }}
-          iconStyle={{ fontSize: '3rem', color: 'silver' }}
-        />
         <Dialog
           actions={actions}
           modal={false}
           open={app.showSettings}
           onRequestClose={this.handleClose}
           autoScrollBodyContent={true}
+          bodyStyle={styles.dialogBody}
+          contentStyle={{ width: '90%' }}
         >
           <ResponsiveTabs>
+            <Tab icon={<FontIcon className="fa fa-user" />} label="PROFILE">
+              <Profile />
+            </Tab>
             <Tab icon={<FontIcon className="fa fa-th" />} label="PROJECTS">
               <Projects />
             </Tab>

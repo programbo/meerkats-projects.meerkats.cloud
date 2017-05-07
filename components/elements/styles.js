@@ -18,7 +18,8 @@ export const media = Object.keys(breakpoints).reduce(
   {}
 )
 
-export const fill = () => `
+export const fill = () =>
+  `
   position: absolute;
   top: 0;
   bottom: 0;
@@ -27,31 +28,36 @@ export const fill = () => `
   width: 100%;
 `
 
-export const centered = () => `
+export const centered = () =>
+  `
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 `
 
-export const fullscreen = () => `
+export const fullscreen = () =>
+  `
   ${size('100vw', '100vh')}
   position: fixed;
   top: 0;
   left: 0;
 `
 
-export const size = (width, height) => `
+export const size = (width, height) =>
+  `
   width: ${width};
   height: ${height};
 `
 
-export const square = size => `
+export const square = size =>
+  `
   width: ${size};
   height: ${size};
 `
 
-export const truncate = width => `
+export const truncate = width =>
+  `
   width: ${width};
   white-space: nowrap;
   overflow: hidden;
@@ -70,4 +76,9 @@ export const rotate = (duration = '1s') => {
   return `
   animation: ${duration} ${rotate360} linear infinite;
 `
+}
+
+export const headingStyle = {
+  fontWeight: 900,
+  fontFamily: '"Roboto", "Helvetic Neue", "Helvetica", "sans-serif"',
 }

@@ -9,14 +9,6 @@ class Users {
     auth().onAuthStateChanged(async authenticatedUser => {
       if (authenticatedUser) {
         firebase.users.on('value', this.refresh)
-        // const usersSnapshot = await firebase.users
-        //   .child(authenticatedUser.uid)
-        //   .once('value')
-        // const notLoggedIn = !app.user
-        // app.user = usersSnapshot.val()
-        // if (notLoggedIn) {
-        //   app.unblock()
-        // }
       }
       else {
         firebase.users.off('value', this.refresh)
@@ -34,8 +26,24 @@ class Users {
     return keys.map(id => ({ id, ...data[id] }))
   }
 
+  @computed get groups() {
+    const data = this.json
+    const keys = Object.keys(data)
+    const groups = keys.reduce((allGroups, key) => {
+      const userGroups = data[key].groups || []
+      userGroups.forEach(group => {
+        allGroups[group] = 0
+      })
+      return allGroups
+    }, {})
+    return Object.keys(groups).sort()
+  }
+
   refresh = users => {
     this.users = users.val()
+    if (app.user) {
+      app.user = this.users[app.user.uid]
+    }
   };
 
   add = async user => {
