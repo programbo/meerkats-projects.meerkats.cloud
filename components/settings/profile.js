@@ -17,10 +17,12 @@ const styles = {
   avatar: {
     position: 'absolute',
   },
+  circularProgress: {
+    zIndex: 2,
+  },
   uploadIcon: {
     fontSize: 48,
     lineHeight: '130px',
-    circularProgress: {},
     position: 'absolute',
     zIndex: 1,
   },
